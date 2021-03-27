@@ -1,4 +1,4 @@
-# NodeJS basic Boilerplate (three.js)
+# NodeJS basic Boilerplate (three.js - gltf scene)
 
 A basic node js startingpoint with three.js. Install nodemon for dev.
 
