@@ -1,5 +1,6 @@
 //
 $backgroundColor: #131516;
+$canvasHeight: 140vw;
 
 body {
   margin: 0;
@@ -9,7 +10,7 @@ body {
 canvas {
   margin: 0 auto;
   width: 100vw;
-  height: 140vw;
+  height: $canvasHeight;
   background: $backgroundColor;
   display: block;
   opacity: 1;
