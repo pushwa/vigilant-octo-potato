@@ -27,9 +27,11 @@ app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 
 // Routes
+const main = require('./routes/main');
 const index = require('./routes/index');
 const _404 = require('./routes/_404');
 
+app.use('/pushwagner_soft_city', main);
 app.use(index);
 app.use(_404);
 
