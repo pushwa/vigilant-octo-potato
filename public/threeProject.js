@@ -3,13 +3,13 @@ import { OrbitControls } from './jsm/controls/OrbitControls.js';
 import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
-//
+// Main vars
 let scene, camera, renderer;
 let controls;
 
-//
-let mixer;
-var clock = new THREE.Clock();
+// Object animation
+const mixers = [];
+const clock = new THREE.Clock();
 
 // Canvas
 const canvas = document.getElementById('canvas');
@@ -42,7 +42,7 @@ function init() {
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
   camera.lookAt(0, 0, 0);
-  camera.position.set(0, -1, 8);
+  camera.position.set(0, 0, 8);
 
   // Renderer
   renderer = new THREE.WebGLRenderer({
@@ -89,35 +89,33 @@ function init() {
 
       // GLB Model
       const loader = new GLTFLoader();
-      loader.load('gltf/tokyo.glb', function (gltf) {
-        const model = gltf.scene;
-        model.position.set(0, 1, 0);
-        model.scale.set(0, 0, 0);
+      loader.load('gltf/parrot.glb', function (gltf) {
+        //
+        const mesh = gltf.scene.children[0];
 
-        model.traverse(function (child) {
-          if (child.isMesh) {
-            //child.material.envMap = envMap;
-          }
-        });
+        const s = 0.06;
+        mesh.scale.set(s, s, s);
+        mesh.position.set(0, 1, 0);
 
-        scene.add(model);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
 
-        mixer = new THREE.AnimationMixer(model);
-        mixer.clipAction(gltf.animations[0]).play();
+        scene.add(mesh);
 
-        animate();
+        const mixer = new THREE.AnimationMixer(mesh);
+        mixer.clipAction(gltf.animations[0]).setDuration(1).play();
+        mixers.push(mixer);
       });
     });
 
   // ---------------
 
-  // Invoke orbit controls
+  //
   orbitControls();
 }
 
 // Animate
 function animate() {
-  //
   // Resize
   const canvas = renderer.domElement;
   const width = canvas.clientWidth;
@@ -140,7 +138,10 @@ function animate() {
   // ---------------
 
   const delta = clock.getDelta();
-  mixer.update(delta);
+
+  for (let i = 0; i < mixers.length; i++) {
+    mixers[i].update(delta);
+  }
 
   // ---------------
 
