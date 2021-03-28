@@ -3,7 +3,7 @@ import { OrbitControls } from './jsm/controls/OrbitControls.js';
 import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
-// Main vars
+//
 let scene, camera, renderer;
 let controls;
 
@@ -30,99 +30,6 @@ function orbitControls() {
   };
 }
 
-// Load textures
-const textureLoader = new THREE.TextureLoader();
-
-// push gltf Objects to array
-const gltfObject1 = [];
-const gltfObject2 = [];
-const gltfObject3 = [];
-
-// Materials
-function material1() {
-  const diffuse = textureLoader.load('./gltf/box1_baseColor.png');
-  diffuse.encoding = THREE.sRGBEncoding;
-  diffuse.flipY = false;
-
-  const normalMap = textureLoader.load('./gltf/box1_normal.png');
-  diffuse.flipY = false;
-
-  const occRoughMet = textureLoader.load(
-    './gltf/box1_occlusionRoughnessMetallic.png'
-  );
-  occRoughMet.flipY = false;
-
-  const mat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    map: diffuse,
-    normalMap: normalMap,
-    aoMap: occRoughMet,
-    roughnessMap: occRoughMet,
-    roughness: 1, // do not adjust
-    metalnessMap: occRoughMet,
-    metalness: 1, // do not adjust
-    envMapIntensity: 1, // Default value
-  });
-
-  return mat;
-}
-
-function material2() {
-  const diffuse = textureLoader.load('./gltf/box2_baseColor.png');
-  diffuse.encoding = THREE.sRGBEncoding;
-  diffuse.flipY = false;
-
-  const normalMap = textureLoader.load('./gltf/box2_normal.png');
-  diffuse.flipY = false;
-
-  const occRoughMet = textureLoader.load(
-    './gltf/box2_occlusionRoughnessMetallic.png'
-  );
-  occRoughMet.flipY = false;
-
-  const mat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    map: diffuse,
-    normalMap: normalMap,
-    aoMap: occRoughMet,
-    roughnessMap: occRoughMet,
-    roughness: 1, // do not adjust
-    metalnessMap: occRoughMet,
-    metalness: 1, // do not adjust
-    envMapIntensity: 1, // Default
-  });
-
-  return mat;
-}
-
-function material3() {
-  const diffuse = textureLoader.load('./gltf/box3_baseColor.png');
-  diffuse.encoding = THREE.sRGBEncoding;
-  diffuse.flipY = false;
-
-  const normalMap = textureLoader.load('./gltf/box3_normal.png');
-  diffuse.flipY = false;
-
-  const occRoughMet = textureLoader.load(
-    './gltf/box3_occlusionRoughnessMetallic.png'
-  );
-  occRoughMet.flipY = false;
-
-  const mat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    map: diffuse,
-    normalMap: normalMap,
-    aoMap: occRoughMet,
-    roughnessMap: occRoughMet,
-    roughness: 1, // do not adjust
-    metalnessMap: occRoughMet,
-    metalness: 1, // do not adjust
-    envMapIntensity: 1, // Default
-  });
-
-  return mat;
-}
-
 // init
 function init() {
   // Scene
@@ -131,7 +38,7 @@ function init() {
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
   camera.lookAt(0, 0, 0);
-  camera.position.set(0, 0, 4);
+  camera.position.set(0, -1, 8);
 
   // Renderer
   renderer = new THREE.WebGLRenderer({
@@ -178,44 +85,17 @@ function init() {
 
       // GLB Model
       const loader = new GLTFLoader();
-      loader.load('gltf/test.glb', function (gltf) {
-        const boxes = gltf.scene.children[0];
-
-        boxes.getObjectByName('box1').material = material1();
-        boxes.getObjectByName('box2').material = material2();
-        boxes.getObjectByName('box3').material = material3();
-
-        // button hide/show object
-        const btn = document.getElementById('btn');
-
-        btn.addEventListener('click', function () {
-          if (boxes.getObjectByName('box2').visible === true) {
-            boxes.getObjectByName('box2').visible = false;
-          } else {
-            boxes.getObjectByName('box2').visible = true;
+      loader.load('gltf/hop.glb', function (gltf) {
+        gltf.scene.traverse(function (child) {
+          if (child.isMesh) {
+            child.position.set(0, 1, 0);
           }
         });
 
-        // Animate objects
-        gltfObject1.push(boxes.getObjectByName('box1'));
-
-        gltfObject2.push(boxes.getObjectByName('box2'));
-
-        gltfObject3.push(boxes.getObjectByName('box3'));
-
-        // Position all gltf objects
-        boxes.position.set(0, 0.3, 0);
-
-        // Rotate all gltf objects
-        boxes.rotation.set(-55, 85, -75);
-
-        // Scale all gltf objects
-        boxes.scale.set(0.9, 0.9, 0.9);
-
-        // Add gltf objects to scene
-        scene.add(boxes);
-      }); // load
-    }); // load
+        scene.add(gltf.scene);
+        animate();
+      });
+    });
 
   // ---------------
 
@@ -224,7 +104,8 @@ function init() {
 }
 
 // Animate
-function animate(delta) {
+function animate() {
+  //
   // Resize
   const canvas = renderer.domElement;
   const width = canvas.clientWidth;
@@ -245,21 +126,6 @@ function animate(delta) {
   controls.update();
 
   // ---------------
-
-  // Animate objects
-  const time = -performance.now() / 1000;
-
-  for (let i = 0; i < gltfObject1.length; i++) {
-    gltfObject1[i].rotation.x = (time / 3) * Math.PI;
-  }
-
-  for (let i = 0; i < gltfObject2.length; i++) {
-    gltfObject2[i].rotation.y = (time / 5) * Math.PI;
-  }
-
-  for (let i = 0; i < gltfObject3.length; i++) {
-    gltfObject3[i].rotation.z = (time / 7) * Math.PI;
-  }
 
   // ---------------
 
