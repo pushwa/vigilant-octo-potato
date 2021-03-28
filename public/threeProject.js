@@ -8,7 +8,7 @@ let scene, camera, renderer;
 let controls;
 
 // Object animation
-const mixers = [];
+let mixer;
 const clock = new THREE.Clock();
 
 // Canvas
@@ -49,6 +49,7 @@ function init() {
     antialias: true,
     canvas: canvas,
     alpha: true,
+    logarithmicDepthBuffer: true,
   });
 
   // Canvas background color
@@ -85,26 +86,22 @@ function init() {
       texture.dispose();
       pmremGenerator.dispose();
 
-      animate();
-
       // GLB Model
       const loader = new GLTFLoader();
-      loader.load('gltf/parrot.glb', function (gltf) {
+      loader.load('gltf/tt.glb', function (gltf) {
         //
-        const mesh = gltf.scene.children[0];
+        const model = gltf.scene;
 
-        const s = 0.06;
-        mesh.scale.set(s, s, s);
-        mesh.position.set(0, 1, 0);
+        model.traverse(function (child) {
+          if (child.isMesh) {
+            child.receiveShadow = true;
+          }
+        });
 
-        mesh.castShadow = true;
-        mesh.receiveShadow = true;
+        mixer = new THREE.AnimationMixer(model);
+        mixer.clipAction(gltf.animations[0]).play();
 
-        scene.add(mesh);
-
-        const mixer = new THREE.AnimationMixer(mesh);
-        mixer.clipAction(gltf.animations[0]).setDuration(1).play();
-        mixers.push(mixer);
+        scene.add(model);
       });
     });
 
@@ -138,10 +135,7 @@ function animate() {
   // ---------------
 
   const delta = clock.getDelta();
-
-  for (let i = 0; i < mixers.length; i++) {
-    mixers[i].update(delta);
-  }
+  if (mixer) mixer.update(delta);
 
   // ---------------
 
