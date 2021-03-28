@@ -7,6 +7,10 @@ import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 let scene, camera, renderer;
 let controls;
 
+//
+let mixer;
+var clock = new THREE.Clock();
+
 // Canvas
 const canvas = document.getElementById('canvas');
 
@@ -85,14 +89,22 @@ function init() {
 
       // GLB Model
       const loader = new GLTFLoader();
-      loader.load('gltf/hop.glb', function (gltf) {
-        gltf.scene.traverse(function (child) {
+      loader.load('gltf/tokyo.glb', function (gltf) {
+        const model = gltf.scene;
+        model.position.set(0, 1, 0);
+        model.scale.set(0, 0, 0);
+
+        model.traverse(function (child) {
           if (child.isMesh) {
-            child.position.set(0, 1, 0);
+            //child.material.envMap = envMap;
           }
         });
 
-        scene.add(gltf.scene);
+        scene.add(model);
+
+        mixer = new THREE.AnimationMixer(model);
+        mixer.clipAction(gltf.animations[0]).play();
+
         animate();
       });
     });
@@ -126,6 +138,9 @@ function animate() {
   controls.update();
 
   // ---------------
+
+  const delta = clock.getDelta();
+  mixer.update(delta);
 
   // ---------------
 
