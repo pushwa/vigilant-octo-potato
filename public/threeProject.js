@@ -5,6 +5,9 @@ import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 // Main
 let scene, camera, renderer;
 
+//
+const gltfObject = [];
+
 // Canvas
 const canvas = document.getElementById('canvas');
 
@@ -80,6 +83,8 @@ function init() {
           }
         });
 
+        gltfObject.push(model);
+
         scene.add(model);
 
         animate();
@@ -115,6 +120,13 @@ function animate() {
   camera.rotation.x = 0 + -1 * t;
   camera.rotation.y = 0 + -0.2 * t;
   camera.rotation.z = 0 + -0.1 * t;
+
+  const time = -performance.now() / 1000;
+
+  for (let i = 0; i < gltfObject.length; i++) {
+    gltfObject[i].rotation.x = (time / 7) * Math.PI;
+    gltfObject[i].rotation.z = 0 + -2 * t;
+  }
 
   // ---------------
 
