@@ -5,6 +5,8 @@ $canvasHeight: 140vw;
 body {
   margin: 0;
   overflow-x: hidden;
+  box-sizing: border-box;
+  height: 500vw;
 }
 
 canvas {
@@ -14,6 +16,7 @@ canvas {
   background: $backgroundColor;
   display: block;
   opacity: 1;
+  box-sizing: border-box;
 
   /* disable blue line around canvas on mobile */
   outline: none;

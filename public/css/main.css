@@ -1,6 +1,8 @@
 body {
   margin: 0;
   overflow-x: hidden;
+  box-sizing: border-box;
+  height: 500vw;
 }
 
 canvas {
@@ -10,6 +12,7 @@ canvas {
   background: #131516;
   display: block;
   opacity: 1;
+  box-sizing: border-box;
   /* disable blue line around canvas on mobile */
   outline: none;
 }

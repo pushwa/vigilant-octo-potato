@@ -1,38 +1,16 @@
 import * as THREE from '../build/three.module.js';
-import { OrbitControls } from './jsm/controls/OrbitControls.js';
 import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
-// Main vars
+// Main
 let scene, camera, renderer;
-let controls;
-
-// Object animation
-let mixer;
-const clock = new THREE.Clock();
 
 // Canvas
 const canvas = document.getElementById('canvas');
 
-// Orbit controls
-function orbitControls() {
-  // Orbit Controls
-  controls = new OrbitControls(camera, renderer.domElement);
-  //controls.minDistance = 0.5;
-  //controls.maxDistance = 0.6;
-  controls.target.set(0, 0, 0);
-  controls.autoRotate = false; // Set "true" for auto rotate
-  controls.autoRotateSpeed = 0.5;
-  controls.enableDamping = true; // If enabled, use the controls.update() function inside the animate function
-  controls.dampingFactor = 0.03;
-  controls.enablePan = false;
-  controls.enableZoom = false;
-
-  controls.touches = {
-    ONE: THREE.TOUCH.ROTATE,
-    TWO: THREE.TOUCH.DOLLY_PAN,
-  };
-}
+//
+init();
+animate();
 
 // init
 function init() {
@@ -41,8 +19,8 @@ function init() {
 
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
+  camera.position.set(0, 0, 10);
   camera.lookAt(0, 0, 0);
-  camera.position.set(0, 0, 8);
 
   // Renderer
   renderer = new THREE.WebGLRenderer({
@@ -67,7 +45,7 @@ function init() {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  // ---------------
+  // ------------------------------------------------------------------
 
   // HDR Image / gltf model
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -86,11 +64,15 @@ function init() {
       texture.dispose();
       pmremGenerator.dispose();
 
+      animate();
+
       // GLB Model
       const loader = new GLTFLoader();
-      loader.load('gltf/tt.glb', function (gltf) {
+      loader.load('glb/scene.glb', function (gltf) {
         //
         const model = gltf.scene;
+        model.position.set(0, 2, 0);
+        model.scale.set(1, 1, 1);
 
         model.traverse(function (child) {
           if (child.isMesh) {
@@ -98,17 +80,13 @@ function init() {
           }
         });
 
-        mixer = new THREE.AnimationMixer(model);
-        mixer.clipAction(gltf.animations[0]).play();
-
         scene.add(model);
+
+        animate();
       });
     });
 
-  // ---------------
-
-  //
-  orbitControls();
+  // ------------------------------------------------------------------
 }
 
 // Animate
@@ -129,13 +107,9 @@ function animate() {
   // Animation timeline
   requestAnimationFrame(animate);
 
-  // Orbit Controls (When damping is on)
-  controls.update();
-
   // ---------------
 
-  const delta = clock.getDelta();
-  if (mixer) mixer.update(delta);
+  // Animate
 
   // ---------------
 
@@ -143,6 +117,11 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-// Invoke
-init();
-animate();
+//
+function updateCamera() {
+  let body = document.querySelector('body');
+  camera.position.y = 0 + window.scrollY / 150;
+  camera.position.z = 10 + window.scrollY / -150;
+}
+
+window.addEventListener('scroll', updateCamera);
