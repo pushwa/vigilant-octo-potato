@@ -71,7 +71,7 @@ function init() {
       loader.load('glb/scene.glb', function (gltf) {
         //
         const model = gltf.scene;
-        model.position.set(0, 2, 0);
+        model.position.set(0, 0, 0);
         model.scale.set(1, 1, 1);
 
         model.traverse(function (child) {
@@ -109,19 +109,15 @@ function animate() {
 
   // ---------------
 
-  // Animate
+  let t = scrollY / (100 - innerHeight);
+  camera.position.y = 1 + 5 * t;
+  camera.position.z = 10 + 10 * t;
+  camera.rotation.x = 0 + -1 * t;
+  camera.rotation.y = 0 + -0.2 * t;
+  camera.rotation.z = 0 + -0.1 * t;
 
   // ---------------
 
   // Render scene
   renderer.render(scene, camera);
 }
-
-//
-function updateCamera() {
-  let body = document.querySelector('body');
-  camera.position.y = 0 + window.scrollY / 150;
-  camera.position.z = 10 + window.scrollY / -150;
-}
-
-window.addEventListener('scroll', updateCamera);
