@@ -49,6 +49,9 @@ function init() {
   // Scene
   scene = new THREE.Scene();
 
+  // Fog
+  scene.fog = new THREE.Fog(0x121113, 0.5, 15, 4000);
+
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
   camera.lookAt(0, 0, 0);
@@ -157,7 +160,7 @@ function animate() {
   // Scroll event
   let t = scrollY / (100 - innerHeight);
   camera.position.y = 1 + 5 * t;
-  camera.position.z = 10 + 10 * t;
+  camera.position.z = 10 + 12 * t;
   camera.rotation.x = 0 + -1 * t;
   camera.rotation.y = 0 + -0.2 * t;
   camera.rotation.z = 0 + -0.1 * t;
