@@ -5,32 +5,60 @@ import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 // Main
 let scene, camera, renderer;
 
-//
-const gltfObject = [];
-
 // Canvas
 const canvas = document.getElementById('canvas');
 
-//
-init();
-animate();
+// Glb Object
+const glbObject = [];
+
+// Load textures
+const textureLoader = new THREE.TextureLoader();
+
+// Material
+function glbMaterial() {
+  const diffuse = textureLoader.load('./glb/blue_baseColor.png');
+  diffuse.encoding = THREE.sRGBEncoding;
+  diffuse.flipY = false;
+
+  const normalMap = textureLoader.load('./glb/blue_normal.png');
+  diffuse.flipY = false;
+
+  const occRoughMet = textureLoader.load(
+    './glb/blue_occlusionRoughnessMetallic.png'
+  );
+  occRoughMet.flipY = false;
+
+  const mat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    map: diffuse,
+    normalMap: normalMap,
+    aoMap: occRoughMet,
+    roughnessMap: occRoughMet,
+    roughness: 1, // do not adjust
+    metalnessMap: occRoughMet,
+    metalness: 1, // do not adjust
+    envMapIntensity: 1, // Default value
+  });
+
+  return mat;
+}
 
 // init
 function init() {
+  //
   // Scene
   scene = new THREE.Scene();
 
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
-  camera.position.set(0, 0, 10);
   camera.lookAt(0, 0, 0);
+  camera.position.set(0, 0, 10);
 
   // Renderer
   renderer = new THREE.WebGLRenderer({
     antialias: true,
     canvas: canvas,
     alpha: true,
-    logarithmicDepthBuffer: true,
   });
 
   // Canvas background color
@@ -48,9 +76,9 @@ function init() {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  // ------------------------------------------------------------------
+  // -----------------------------------------------
 
-  // HDR Image / gltf model
+  // HDR Image / Glb model
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
   pmremGenerator.compileEquirectangularShader();
 
@@ -71,27 +99,39 @@ function init() {
 
       // GLB Model
       const loader = new GLTFLoader();
-      loader.load('glb/scene.glb', function (gltf) {
-        //
-        const model = gltf.scene;
-        model.position.set(0, 0, 0);
-        model.scale.set(1, 1, 1);
+      loader.load(
+        'glb/test.glb',
+        function (glb) {
+          //
+          const model = glb.scene.children[0];
 
-        model.traverse(function (child) {
-          if (child.isMesh) {
-            child.receiveShadow = true;
-          }
-        });
+          model.getObjectByName('test').material = glbMaterial();
 
-        gltfObject.push(model);
+          // Push glb model to array
+          glbObject.push(model.getObjectByName('test'));
 
-        scene.add(model);
+          // Position
+          model.position.set(0, 0, 0);
 
-        animate();
-      });
+          // Rotate
+          model.rotation.set(0, 0, 0);
+
+          // Scale
+          model.scale.set(1, 1, 1);
+
+          // Add glb object to scene
+          scene.add(model);
+
+          animate();
+        },
+        undefined,
+        function (error) {
+          console.error(error);
+        }
+      );
     });
 
-  // ------------------------------------------------------------------
+  // -----------------------------------------------
 }
 
 // Animate
@@ -114,6 +154,7 @@ function animate() {
 
   // ---------------
 
+  // Scroll event
   let t = scrollY / (100 - innerHeight);
   camera.position.y = 1 + 5 * t;
   camera.position.z = 10 + 10 * t;
@@ -121,11 +162,11 @@ function animate() {
   camera.rotation.y = 0 + -0.2 * t;
   camera.rotation.z = 0 + -0.1 * t;
 
+  // Object animation
   const time = -performance.now() / 1000;
 
-  for (let i = 0; i < gltfObject.length; i++) {
-    gltfObject[i].rotation.x = (time / 7) * Math.PI;
-    gltfObject[i].rotation.z = 0 + -2 * t;
+  for (let i = 0; i < glbObject.length; i++) {
+    glbObject[i].rotation.x = (time / 3) * Math.PI;
   }
 
   // ---------------
@@ -133,3 +174,7 @@ function animate() {
   // Render scene
   renderer.render(scene, camera);
 }
+
+// Invoke
+init();
+animate();
