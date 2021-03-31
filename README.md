@@ -1,6 +1,6 @@
 # NodeJS basic Boilerplate (three.js - gltf scene)
 
-A basic node js startingpoint with three.js. Install nodemon for dev.
+A basic node js startingpoint with three.js. Install nodemon for dev. Run npm install in your git bash
 
 # Substance painter:
 
