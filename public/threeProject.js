@@ -37,7 +37,7 @@ function glbMaterial() {
     roughness: 1, // do not adjust
     metalnessMap: occRoughMet,
     metalness: 1, // do not adjust
-    envMapIntensity: 1, // Default value
+    envMapIntensity: 1.5, // Default value
   });
 
   return mat;
@@ -50,7 +50,7 @@ function init() {
   scene = new THREE.Scene();
 
   // Fog
-  scene.fog = new THREE.Fog(0x121113, 0.5, 15, 4000);
+  scene.fog = new THREE.Fog(0x1d1a1a, 0.5, 12, 4000);
 
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
