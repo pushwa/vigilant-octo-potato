@@ -162,6 +162,10 @@ function animate() {
   camera.rotation.y = 0 + -0.2 * t;
   camera.rotation.z = 0 + -0.1 * t;
 
+  for (let i = 0; i < glbObject.length; i++) {
+    glbObject[i].rotation.z = 0 + -3 * t;
+  }
+
   // Object animation
   const time = -performance.now() / 1000;
 
