@@ -2,6 +2,7 @@ body {
   margin: 0;
   overflow-x: hidden;
   box-sizing: border-box;
+  background-color: #1d1a1a;
   height: 500vw;
 }
 
@@ -9,11 +10,16 @@ canvas {
   margin: 0 auto;
   width: 100vw;
   height: 210vw;
-  background-color: #1d1a1a;
   display: block;
   opacity: 1;
   box-sizing: border-box;
-  /* disable blue line around canvas on mobile */
+  position: sticky;
+  transition: opacity 400ms;
+  -webkit-transition: opacity 400ms;
+  -moz-transition: opacity 400ms;
+  -ms-transition: opacity 400ms;
+  -o-transition: opacity 400ms;
+  /*disablebluelinearoundcanvasonmobile*/
   outline: none;
 }
 
@@ -21,6 +27,12 @@ button {
   position: absolute;
   top: 5vw;
   left: 5vw;
+}
+
+.box {
+  width: 100vw;
+  height: 105vw;
+  background: linear-gradient(90deg, #355c7d 0%, #6c5b7b 50%, #c06c84 100%);
 }
 
 /*# sourceMappingURL=main.css.map */

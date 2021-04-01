@@ -50,7 +50,7 @@ function init() {
   scene = new THREE.Scene();
 
   // Fog
-  scene.fog = new THREE.Fog(0x1d1a1a, 0.5, 12, 4000);
+  scene.fog = new THREE.Fog(0x1d1a1a, 5, 12, 4000);
 
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
@@ -159,11 +159,21 @@ function animate() {
 
   // Scroll event
   let t = scrollY / (100 - innerHeight);
-  camera.position.y = 1 + 5 * t;
-  camera.position.z = 10 + 12 * t;
+
+  if (
+    document.documentElement.scrollTop > 5 &&
+    document.documentElement.scrollTop < 599
+  ) {
+    canvas.style.opacity = '1';
+  } else {
+    canvas.style.opacity = '0';
+  }
+
+  camera.position.y = 0 + 3 * t;
+  camera.position.z = 10 + 8 * t;
   camera.rotation.x = 0 + -1 * t;
   camera.rotation.y = 0 + -0.2 * t;
-  camera.rotation.z = 0 + -0.1 * t;
+  camera.rotation.z = 0 + -0.7 * t;
 
   for (let i = 0; i < glbObject.length; i++) {
     glbObject[i].rotation.z = 0 + -3 * t;
