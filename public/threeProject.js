@@ -43,6 +43,9 @@ function glbMaterial() {
   return mat;
 }
 
+init();
+render();
+
 // init
 function init() {
   //
@@ -91,14 +94,11 @@ function init() {
     .load('sunflowers_1k.hdr', function (texture) {
       const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 
-      // Show/hide hdri image
       //scene.background = envMap;
       scene.environment = envMap;
 
       texture.dispose();
       pmremGenerator.dispose();
-
-      animate();
 
       // GLB Model
       const loader = new GLTFLoader();
@@ -128,8 +128,11 @@ function init() {
   // -----------------------------------------------
 }
 
-// Animate
-function animate() {
+// Render
+function render() {
+  // Animation timeline
+  requestAnimationFrame(render);
+
   // Resize
   const canvas = renderer.domElement;
   const width = canvas.clientWidth;
@@ -142,9 +145,6 @@ function animate() {
 
     // set render target sizes here
   }
-
-  // Animation timeline
-  requestAnimationFrame(animate);
 
   // ---------------
 
@@ -180,7 +180,3 @@ function animate() {
   // Render scene
   renderer.render(scene, camera);
 }
-
-// Invoke
-init();
-animate();
