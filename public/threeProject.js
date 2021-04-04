@@ -2,7 +2,39 @@ import * as THREE from '../build/three.module.js';
 import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
-// Main
+// ----------------------------------------------------------------------------------------
+
+import { EffectComposer } from './jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from './jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from './jsm/postprocessing/ShaderPass.js';
+import { LUTPass } from './jsm/postprocessing/LUTPass.js';
+import { LUTCubeLoader } from './jsm/loaders/LUTCubeLoader.js';
+import { GammaCorrectionShader } from './jsm/shaders/GammaCorrectionShader.js';
+import { GUI } from './jsm/libs/dat.gui.module.js';
+
+// ----------------------------------------------------------------------------------------
+
+let gui;
+let composer, lutPass;
+
+const params = {
+  enabled: true,
+  lut: 'Clayton 33.CUBE',
+  intensity: 1,
+  use2dLut: false,
+};
+
+const lutMap = {
+  'Bourbon 64.CUBE': null,
+  'Chemical 168.CUBE': null,
+  'Clayton 33.CUBE': null,
+  'Cubicle 99.CUBE': null,
+  'Remy 24.CUBE': null,
+};
+
+// ----------------------------------------------------------------------------------------
+
+//
 let scene, camera, renderer;
 
 // Canvas
@@ -43,14 +75,17 @@ function glbMaterial() {
   return mat;
 }
 
-// init
+//
+init();
+render();
+
+//
 function init() {
-  //
   // Scene
   scene = new THREE.Scene();
 
   // Fog
-  scene.fog = new THREE.Fog(0x1d1a1a, 5, 12, 4000);
+  scene.fog = new THREE.Fog(0x020202, 5, 12, 4000);
 
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
@@ -79,9 +114,46 @@ function init() {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  // -----------------------------------------------
+  // ----------------------------------------------------------------------------------------
 
-  // HDR Image / Glb model
+  Object.keys(lutMap).forEach(name => {
+    new LUTCubeLoader().load('luts/' + name, function (result) {
+      lutMap[name] = result;
+    });
+  });
+
+  const target = new THREE.WebGLRenderTarget({
+    minFilter: THREE.LinearFilter,
+    magFilter: THREE.LinearFilter,
+    format: THREE.RGBAFormat,
+    encoding: THREE.sRGBEncoding,
+  });
+
+  composer = new EffectComposer(renderer, target);
+  composer.addPass(new RenderPass(scene, camera));
+  composer.addPass(new ShaderPass(GammaCorrectionShader));
+
+  lutPass = new LUTPass();
+  composer.addPass(lutPass);
+
+  gui = new GUI();
+  gui.width = 250;
+  gui.add(params, 'enabled');
+  gui.add(params, 'lut', Object.keys(lutMap));
+  gui.add(params, 'intensity').min(0).max(1);
+
+  if (renderer.capabilities.isWebGL2) {
+    gui.add(params, 'use2dLut');
+  } else {
+    params.use2DLut = true;
+  }
+
+  gui.hide();
+
+  // ----------------------------------------------------------------------------------------
+
+  // ----------------
+
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
   pmremGenerator.compileEquirectangularShader();
 
@@ -91,18 +163,15 @@ function init() {
     .load('sunflowers_1k.hdr', function (texture) {
       const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 
-      // Show/hide hdri image
       //scene.background = envMap;
       scene.environment = envMap;
 
       texture.dispose();
       pmremGenerator.dispose();
 
-      animate();
-
-      // GLB Model
-      const loader = new GLTFLoader();
-      loader.load('glb/test.glb', function (glb) {
+      // model
+      const loader = new GLTFLoader().setPath('glb/');
+      loader.load('test.glb', function (glb) {
         //
         const model = glb.scene.children[0];
 
@@ -125,28 +194,40 @@ function init() {
       });
     });
 
-  // -----------------------------------------------
+  // ----------------
 }
 
-// Animate
-function animate() {
+//
+function render() {
+  //
+  requestAnimationFrame(render);
+
   // Resize
-  const canvas = renderer.domElement;
-  const width = canvas.clientWidth;
-  const height = canvas.clientHeight;
-  if (canvas.width !== width || canvas.height !== height) {
+  const c = renderer.domElement;
+  const width = c.clientWidth;
+  const height = c.clientHeight;
+
+  if (c.width !== width || c.height !== height) {
     renderer.setSize(width, height, false);
+    // ----------------
+    composer.setSize(width, height, false);
+    // ----------------
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     console.log(width + ' PX');
-
-    // set render target sizes here
   }
 
-  // Animation timeline
-  requestAnimationFrame(animate);
+  // ----------------------------------------------------------------------------------------
 
-  // ---------------
+  lutPass.enabled = params.enabled && Boolean(lutMap[params.lut]);
+  lutPass.intensity = params.intensity;
+
+  if (lutMap[params.lut]) {
+    const lut = lutMap[params.lut];
+    lutPass.lut = params.use2DLut ? lut.texture : lut.texture3D;
+  }
+
+  // ----------------------------------------------------------------------------------------
 
   // Object animation
   const time = -performance.now() / 1000;
@@ -164,23 +245,19 @@ function animate() {
   camera.rotation.y = 0 + -0.2 * t;
   camera.rotation.z = 0 + -0.7 * t;
 
+  params.intensity = 1 + 1.4 * t;
+
   for (let i = 0; i < glbObject.length; i++) {
     glbObject[i].rotation.z = 0 + -1 * t;
   }
 
   // Fade out on scroll
-  if (document.documentElement.scrollTop > 400) {
+  if (document.documentElement.scrollTop > 480) {
     canvas.style.opacity = 0;
   } else {
     canvas.style.opacity = 1;
   }
 
-  // ---------------
-
-  // Render scene
-  renderer.render(scene, camera);
+  // ----------------
+  composer.render();
 }
-
-// Invoke
-init();
-animate();
