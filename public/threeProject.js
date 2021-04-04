@@ -33,7 +33,7 @@ function orbitControls() {
 // Load textures
 const textureLoader = new THREE.TextureLoader();
 
-// push gltf Objects to array
+// push gltf Objects to empty array
 const gltfObject1 = [];
 const gltfObject2 = [];
 const gltfObject3 = [];
@@ -123,6 +123,9 @@ function material3() {
   return mat;
 }
 
+init();
+render();
+
 // init
 function init() {
   // Scene
@@ -174,12 +177,10 @@ function init() {
       texture.dispose();
       pmremGenerator.dispose();
 
-      animate();
-
       // GLB Model
       const loader = new GLTFLoader();
-      loader.load('gltf/test.glb', function (gltf) {
-        const boxes = gltf.scene.children[0];
+      loader.load('glb/test.glb', function (glb) {
+        const boxes = glb.scene.children[0];
 
         boxes.getObjectByName('box1').material = material1();
         boxes.getObjectByName('box2').material = material2();
@@ -214,17 +215,20 @@ function init() {
 
         // Add gltf objects to scene
         scene.add(boxes);
-      }); // load
-    }); // load
+      });
+    });
 
   // ---------------
 
-  // Invoke orbit controls
+  //
   orbitControls();
 }
 
-// Animate
-function animate(delta) {
+// Render
+function render() {
+  // Animation timeline
+  requestAnimationFrame(render);
+
   // Resize
   const canvas = renderer.domElement;
   const width = canvas.clientWidth;
@@ -237,9 +241,6 @@ function animate(delta) {
 
     // set render target sizes here
   }
-
-  // Animation timeline
-  requestAnimationFrame(animate);
 
   // Orbit Controls (When damping is on)
   controls.update();
@@ -266,7 +267,3 @@ function animate(delta) {
   // Render scene
   renderer.render(scene, camera);
 }
-
-// Invoke
-init();
-animate();
