@@ -11,9 +11,7 @@ canvas {
   width: 100vw;
   height: 210vw;
   display: block;
-  opacity: 1;
   box-sizing: border-box;
-  position: sticky;
   transition: opacity 400ms;
   -webkit-transition: opacity 400ms;
   -moz-transition: opacity 400ms;
@@ -21,12 +19,6 @@ canvas {
   -o-transition: opacity 400ms;
   /*disablebluelinearoundcanvasonmobile*/
   outline: none;
-}
-
-button {
-  position: absolute;
-  top: 5vw;
-  left: 5vw;
 }
 
 .box {

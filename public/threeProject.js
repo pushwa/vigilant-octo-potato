@@ -102,36 +102,27 @@ function init() {
 
       // GLB Model
       const loader = new GLTFLoader();
-      loader.load(
-        'glb/test.glb',
-        function (glb) {
-          //
-          const model = glb.scene.children[0];
+      loader.load('glb/test.glb', function (glb) {
+        //
+        const model = glb.scene.children[0];
 
-          model.getObjectByName('test').material = glbMaterial();
+        model.getObjectByName('test').material = glbMaterial();
 
-          // Push glb model to array
-          glbObject.push(model.getObjectByName('test'));
+        // Push glb model to array
+        glbObject.push(model.getObjectByName('test'));
 
-          // Position
-          model.position.set(0, 0, 0);
+        // Position
+        model.position.set(0, 0, 0);
 
-          // Rotate
-          model.rotation.set(0, 0, 0);
+        // Rotate
+        model.rotation.set(0, 0, 0);
 
-          // Scale
-          model.scale.set(1, 1, 1);
+        // Scale
+        model.scale.set(1, 1, 1);
 
-          // Add glb object to scene
-          scene.add(model);
-
-          animate();
-        },
-        undefined,
-        function (error) {
-          console.error(error);
-        }
-      );
+        // Add glb object to scene
+        scene.add(model);
+      });
     });
 
   // -----------------------------------------------
@@ -157,17 +148,15 @@ function animate() {
 
   // ---------------
 
+  // Object animation
+  const time = -performance.now() / 1000;
+
+  for (let i = 0; i < glbObject.length; i++) {
+    glbObject[i].rotation.x = (time / 3) * Math.PI;
+  }
+
   // Scroll event
   let t = scrollY / (100 - innerHeight);
-
-  if (
-    document.documentElement.scrollTop > 5 &&
-    document.documentElement.scrollTop < 599
-  ) {
-    canvas.style.opacity = '1';
-  } else {
-    canvas.style.opacity = '0';
-  }
 
   camera.position.y = 0 + 3 * t;
   camera.position.z = 10 + 8 * t;
@@ -176,14 +165,14 @@ function animate() {
   camera.rotation.z = 0 + -0.7 * t;
 
   for (let i = 0; i < glbObject.length; i++) {
-    glbObject[i].rotation.z = 0 + -3 * t;
+    glbObject[i].rotation.z = 0 + -1 * t;
   }
 
-  // Object animation
-  const time = -performance.now() / 1000;
-
-  for (let i = 0; i < glbObject.length; i++) {
-    glbObject[i].rotation.x = (time / 3) * Math.PI;
+  // Fade out on scroll
+  if (document.documentElement.scrollTop > 400) {
+    canvas.style.opacity = 0;
+  } else {
+    canvas.style.opacity = 1;
   }
 
   // ---------------
