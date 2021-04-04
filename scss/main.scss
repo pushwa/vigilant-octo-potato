@@ -1,6 +1,6 @@
 //
 // Colors
-$canvasColor: #1d1a1a;
+$bodyColor: #1d1a1a;
 $boxColor: linear-gradient(90deg, #355c7d 0%, #6c5b7b 50%, #c06c84 100%);
 
 // Body
@@ -8,7 +8,7 @@ body {
   margin: 0;
   overflow-x: hidden;
   box-sizing: border-box;
-  background-color: $canvasColor;
+  background-color: $bodyColor;
   height: 500vw;
 }
 
