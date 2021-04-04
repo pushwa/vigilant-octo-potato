@@ -2,7 +2,7 @@ body {
   margin: 0;
   overflow-x: hidden;
   box-sizing: border-box;
-  background-color: #121314;
+  background-color: #101011;
   height: 500vw;
 }
 
@@ -24,7 +24,7 @@ canvas {
 .box {
   width: 100vw;
   height: 105vw;
-  background: linear-gradient(180deg, #fc4a1a 0%, #f7b733 100%);
+  background: linear-gradient(180deg, #131313 0%, #1b1b1b 100%);
 }
 
 /*# sourceMappingURL=main.css.map */
