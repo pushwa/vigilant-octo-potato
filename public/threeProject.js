@@ -69,7 +69,7 @@ function glbMaterial() {
     roughness: 1, // do not adjust
     metalnessMap: occRoughMet,
     metalness: 1, // do not adjust
-    envMapIntensity: 1.5, // Default value
+    envMapIntensity: 1, // Default value
   });
 
   return mat;
@@ -181,7 +181,7 @@ function init() {
         glbObject.push(model.getObjectByName('test'));
 
         // Position
-        model.position.set(0, 0, 0);
+        model.position.set(0, 1.5, 0);
 
         // Rotate
         model.rotation.set(0, 0, 0);
@@ -239,16 +239,16 @@ function render() {
   // Scroll event
   let t = scrollY / (100 - innerHeight);
 
-  camera.position.y = 0 + 3 * t;
-  camera.position.z = 10 + 8 * t;
-  camera.rotation.x = 0 + -1 * t;
-  camera.rotation.y = 0 + -0.2 * t;
+  camera.position.y = 0 + -0.05 * t;
+  camera.position.z = 10 + 8.5 * t;
+  camera.rotation.x = 0 + -0.9 * t;
+  camera.rotation.y = 0 + -0.13 * t;
   camera.rotation.z = 0 + -0.7 * t;
 
   params.intensity = 1 + 1.4 * t;
 
   for (let i = 0; i < glbObject.length; i++) {
-    glbObject[i].rotation.z = 0 + -1 * t;
+    glbObject[i].rotation.z = 0 + 1 * t;
   }
 
   // Fade out on scroll
