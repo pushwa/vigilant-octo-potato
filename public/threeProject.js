@@ -12,6 +12,8 @@ import { LUTCubeLoader } from './jsm/loaders/LUTCubeLoader.js';
 import { GammaCorrectionShader } from './jsm/shaders/GammaCorrectionShader.js';
 import { GUI } from './jsm/libs/dat.gui.module.js';
 
+import Stats from './jsm/libs/stats.module.js';
+
 // ----------------------------------------------------------------------------------------
 
 let gui;
@@ -35,10 +37,21 @@ const lutMap = {
 // ----------------------------------------------------------------------------------------
 
 //
-let scene, camera, renderer;
+let scene, camera, renderer, stats;
 
 // Canvas
 const canvas = document.getElementById('canvas');
+
+// Stats
+function st() {
+  stats = new Stats();
+  stats.setMode(0);
+  stats.domElement.style.position = 'fixed';
+  stats.domElement.style.top = '50px';
+  stats.domElement.style.left = '10px';
+  document.body.appendChild(stats.domElement);
+}
+//st();
 
 // Glb Object
 const glbObject = [];
@@ -90,11 +103,11 @@ function init() {
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
   camera.lookAt(0, 0, 0);
-  camera.position.set(0, 0, 10);
+  //camera.position.set(0, 0, 0);
 
   // Renderer
   renderer = new THREE.WebGLRenderer({
-    antialias: true,
+    antialias: false,
     canvas: canvas,
     alpha: true,
   });
@@ -148,6 +161,7 @@ function init() {
     params.use2DLut = true;
   }
 
+  // Hide GUI
   gui.hide();
 
   // ----------------------------------------------------------------------------------------
@@ -171,7 +185,7 @@ function init() {
 
       // model
       const loader = new GLTFLoader().setPath('glb/');
-      loader.load('test.glb', function (glb) {
+      loader.load('blue.glb', function (glb) {
         //
         const model = glb.scene.children[0];
 
@@ -181,7 +195,7 @@ function init() {
         glbObject.push(model.getObjectByName('test'));
 
         // Position
-        model.position.set(0, 2.1, 0);
+        model.position.set(0, 0, 0);
 
         // Rotate
         model.rotation.set(0, 0, 0);
@@ -233,33 +247,131 @@ function render() {
   const time = -performance.now() / 1000;
 
   for (let i = 0; i < glbObject.length; i++) {
-    glbObject[i].rotation.x = (time / 3) * Math.PI;
+    glbObject[i].rotation.x = (time / 4) * Math.PI;
   }
 
-  // Scroll event
-  let t = scrollY / (100 - innerHeight);
+  // Scroller
+  const scroll = scrollY / (100 - innerHeight);
 
-  camera.position.x = 0 + -0.4 * t;
-  camera.position.y = 0 + -2.5 * t;
-  camera.position.z = 10 + 8.1 * t;
-
-  camera.rotation.x = 0 + -0.9 * t;
-  camera.rotation.y = 0 + -0.1 * t;
-  camera.rotation.z = 0 + -0.1 * t;
-
-  params.intensity = 1 + 1.4 * t;
-
+  // Object rotate on scroll
   for (let i = 0; i < glbObject.length; i++) {
-    glbObject[i].rotation.z = 0 + 1.3 * t;
+    glbObject[i].rotation.z = 1.3 * scroll;
   }
 
-  // Fade out on scroll
-  if (document.documentElement.scrollTop > 480) {
-    canvas.style.opacity = 0;
+  // Media queries
+  const mobile = window.matchMedia('(max-width: 425px)');
+  const tablet = window.matchMedia('(max-width: 768px)');
+  const laptop = window.matchMedia('(max-width: 1024px)');
+  const laptopL = window.matchMedia('(max-width: 1440px)');
+
+  if (mobile.matches) {
+    // -------------------------------------------
+    // camera on scroll
+    camera.position.x = 0.2 + -1.2 * scroll;
+    camera.position.y = -1.5 + 1.6 * scroll;
+    camera.position.z = 11 + 8.1 * scroll;
+
+    camera.rotation.x = 0 + -1.2 * scroll;
+    camera.rotation.y = 0 + -0.1 * scroll;
+
+    // Fade out on scroll
+    if (document.documentElement.scrollTop > 500) {
+      canvas.style.opacity = 0;
+    } else {
+      canvas.style.opacity = 1;
+    }
+
+    // 3D Lut on scroll
+    params.intensity = 1 + 1.4 * scroll;
+    // -------------------------------------------
+  } else if (tablet.matches) {
+    // -------------------------------------------
+    // camera on scroll
+    camera.position.x = 0.2 + -1.2 * scroll;
+    camera.position.y = -6 + -1.1 * scroll;
+    camera.position.z = 17 + 8.1 * scroll;
+
+    camera.rotation.x = 0 + -0.7 * scroll;
+    camera.rotation.y = 0 + -0.1 * scroll;
+
+    // Fade out on scroll
+    if (document.documentElement.scrollTop > 1100) {
+      canvas.style.opacity = 0;
+    } else {
+      canvas.style.opacity = 1;
+    }
+
+    // 3D Lut on scroll
+    params.intensity = 1 + 0.7 * scroll;
+    // -------------------------------------------
+  } else if (laptop.matches) {
+    // -------------------------------------------
+    // camera on scroll
+    camera.position.x = 0.2 + -1.2 * scroll;
+    camera.position.y = -7.2 + -1.1 * scroll;
+    camera.position.z = 19 + 8 * scroll;
+
+    camera.rotation.x = 0 + -0.51 * scroll;
+    camera.rotation.y = 0 + -0.13 * scroll;
+    camera.rotation.z = 0 + -0.3 * scroll;
+
+    // Fade out on scroll
+    if (document.documentElement.scrollTop > 990) {
+      canvas.style.opacity = 0;
+    } else {
+      canvas.style.opacity = 1;
+    }
+
+    // 3D Lut on scroll
+    params.intensity = 1 + 0.7 * scroll;
+    // -------------------------------------------
+  } else if (laptopL.matches) {
+    // -------------------------------------------
+    // camera on scroll
+    camera.position.x = 0.2 + -1.2 * scroll;
+    camera.position.y = -9 + -1.1 * scroll;
+    camera.position.z = 19.9 + 10 * scroll;
+
+    camera.rotation.x = 0 + -0.5 * scroll;
+    camera.rotation.y = 0 + -0.1 * scroll;
+    camera.rotation.z = 0 + -0.3 * scroll;
+
+    // Fade out on scroll
+    if (document.documentElement.scrollTop > 900) {
+      canvas.style.opacity = 0;
+    } else {
+      canvas.style.opacity = 1;
+    }
+
+    // 3D Lut on scroll
+    params.intensity = 1 + 0.9 * scroll;
+    // -------------------------------------------
   } else {
-    canvas.style.opacity = 1;
+    // -------------------------------------------
+    // camera on scroll
+    camera.position.x = 0.2 + -1.2 * scroll;
+    camera.position.y = -9 + 1.1 * scroll;
+    camera.position.z = 19.9 + 10 * scroll;
+
+    camera.rotation.x = 0 + -0.5 * scroll;
+    camera.rotation.y = 0 + -0.1 * scroll;
+    camera.rotation.z = 0 + -0.1 * scroll;
+
+    // Fade out on scroll
+    if (document.documentElement.scrollTop > 900) {
+      canvas.style.opacity = 0;
+    } else {
+      canvas.style.opacity = 1;
+    }
+
+    // 3D Lut on scroll
+    params.intensity = 1 + 0.9 * scroll;
+    // -------------------------------------------
   }
 
-  // ----------------
+  // Stats
+  //stats.update();
+
+  //
   composer.render();
 }
