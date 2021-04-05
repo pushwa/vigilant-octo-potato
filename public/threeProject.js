@@ -181,7 +181,7 @@ function init() {
         glbObject.push(model.getObjectByName('test'));
 
         // Position
-        model.position.set(0, 1.5, 0);
+        model.position.set(0, 2.1, 0);
 
         // Rotate
         model.rotation.set(0, 0, 0);
@@ -239,16 +239,18 @@ function render() {
   // Scroll event
   let t = scrollY / (100 - innerHeight);
 
-  camera.position.y = 0 + -0.05 * t;
-  camera.position.z = 10 + 8.5 * t;
+  camera.position.x = 0 + -0.4 * t;
+  camera.position.y = 0 + -2.5 * t;
+  camera.position.z = 10 + 8.1 * t;
+
   camera.rotation.x = 0 + -0.9 * t;
-  camera.rotation.y = 0 + -0.13 * t;
-  camera.rotation.z = 0 + -0.7 * t;
+  camera.rotation.y = 0 + -0.1 * t;
+  camera.rotation.z = 0 + -0.1 * t;
 
   params.intensity = 1 + 1.4 * t;
 
   for (let i = 0; i < glbObject.length; i++) {
-    glbObject[i].rotation.z = 0 + 1 * t;
+    glbObject[i].rotation.z = 0 + 1.3 * t;
   }
 
   // Fade out on scroll
