@@ -97,7 +97,7 @@ function init() {
   scene = new THREE.Scene();
 
   // Fog
-  scene.fog = new THREE.Fog(0x121216, 18, 20, 4000);
+  scene.fog = new THREE.Fog(0x121216, 15, 20, 4000);
 
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
@@ -208,6 +208,70 @@ function init() {
     });
 
   // ----------------
+
+  // -------------------------------------------
+  // Particles
+
+  // Particles
+  const geometry = new THREE.BufferGeometry();
+  const vertices = [];
+
+  const textureLoader = new THREE.TextureLoader();
+
+  const sprite1 = textureLoader.load('sprites/flake1.png');
+  const sprite2 = textureLoader.load('sprites/flake2.png');
+  const sprite3 = textureLoader.load('sprites/flake3.png');
+  const sprite4 = textureLoader.load('sprites/flake4.png');
+  const sprite5 = textureLoader.load('sprites/flake5.png');
+
+  const particleAmount = 3000;
+
+  for (let i = 0; i < particleAmount; i++) {
+    const x = Math.random() * 3000 - 2000;
+    const y = Math.random() * 3000 - 2000;
+    const z = Math.random() * 3000 - 2000;
+
+    vertices.push(x, y, z);
+  }
+
+  geometry.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(vertices, 3)
+  );
+
+  const parameters = [
+    [sprite2, 9],
+    [sprite3, 7],
+    [sprite1, 6],
+    [sprite5, 8],
+    [sprite4, 5],
+  ];
+
+  const materials = [];
+
+  for (let i = 0; i < parameters.length; i++) {
+    const sprite = parameters[i][0];
+    const size = parameters[i][1];
+
+    materials[i] = new THREE.PointsMaterial({
+      map: sprite,
+      size: size,
+      blending: THREE.AdditiveBlending,
+      depthTest: false,
+      transparent: true,
+      color: 0xfc4a1a,
+    });
+
+    const particles = new THREE.Points(geometry, materials[i]);
+
+    particles.rotation.x = Math.random() * 8;
+    particles.rotation.y = Math.random() * 6;
+    particles.rotation.z = Math.random() * 5;
+
+    scene.add(particles);
+  }
+
+  // -------------------------------------------
 
   //
   render();
@@ -358,6 +422,21 @@ function render() {
     }
     // -------------------------------------------
   }
+
+  // -------------------------------------------
+  // Particles
+  const particleTime = Date.now() * 0.00004;
+
+  for (let i = 0; i < scene.children.length; i++) {
+    const object = scene.children[i];
+
+    if (object instanceof THREE.Points) {
+      object.rotation.x = particleTime * (i < 5 ? i + 1 : -(i + 0.9));
+      object.rotation.y = particleTime * (i < 4 ? i + 1 : -(i + 1));
+      object.rotation.z = particleTime * (i < 3 ? i + 1 : -(i + 0.6));
+    }
+  }
+  // -------------------------------------------
 
   // Stats
   //stats.update();
