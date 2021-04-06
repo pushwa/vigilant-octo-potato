@@ -308,64 +308,64 @@ function render() {
     // -------------------------------------------
     // camera on scroll
     camera.position.x = 0.2 + -1.2 * scroll;
-    camera.position.y = -7.2 + -1.1 * scroll;
-    camera.position.z = 19 + 8 * scroll;
+    camera.position.y = -1 + -2.1 * scroll;
+    camera.position.z = 10 + 8 * scroll;
 
     camera.rotation.x = 0 + -0.51 * scroll;
     camera.rotation.y = 0 + -0.13 * scroll;
     camera.rotation.z = 0 + -0.3 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 990) {
+    if (document.documentElement.scrollTop > 470) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;
     }
 
     // 3D Lut on scroll
-    params.intensity = 1 + 0.7 * scroll;
+    params.intensity = 1 + 0.9 * scroll;
     // -------------------------------------------
   } else if (laptopL.matches) {
     // -------------------------------------------
     // camera on scroll
-    camera.position.x = 0.2 + -1.2 * scroll;
-    camera.position.y = -9 + -1.1 * scroll;
-    camera.position.z = 19.9 + 10 * scroll;
+    camera.position.x = 0.1 + -1.2 * scroll;
+    camera.position.y = -1.3 + -2.1 * scroll;
+    camera.position.z = 11 + 10 * scroll;
 
     camera.rotation.x = 0 + -0.5 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
     camera.rotation.z = 0 + -0.3 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 900) {
+    if (document.documentElement.scrollTop > 500) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;
     }
 
     // 3D Lut on scroll
-    params.intensity = 1 + 0.9 * scroll;
+    params.intensity = 1 + 0.95 * scroll;
     // -------------------------------------------
   } else {
     // -------------------------------------------
     // camera on scroll
-    camera.position.x = 0.2 + -1.2 * scroll;
-    camera.position.y = -9 + 1.1 * scroll;
-    camera.position.z = 19.9 + 10 * scroll;
+    camera.position.x = 0.1 + -1.2 * scroll;
+    camera.position.y = -1.6 + -2.1 * scroll;
+    camera.position.z = 11 + 8 * scroll;
 
     camera.rotation.x = 0 + -0.5 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
-    camera.rotation.z = 0 + -0.1 * scroll;
+    camera.rotation.z = 0 + -0.3 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 900) {
+    if (document.documentElement.scrollTop > 500) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;
     }
 
     // 3D Lut on scroll
-    params.intensity = 1 + 0.9 * scroll;
+    params.intensity = 1 + 0.95 * scroll;
     // -------------------------------------------
   }
 

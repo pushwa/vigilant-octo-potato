@@ -1,7 +1,7 @@
 //
 // Colors
 $bodyColor: #101011;
-$boxColor: linear-gradient(180deg, #131313 0%, #1b1b1b 100%);
+$boxColor: linear-gradient(90deg, #fc4a1a 0%, #f7b733 100%);
 
 // Body
 body {
@@ -28,6 +28,20 @@ canvas {
 
   /*disablebluelinearoundcanvasonmobile*/
   outline: none;
+}
+
+/* Laptop */
+@media only screen and (min-width: 1024px) {
+  canvas {
+    height: 90vw;
+  }
+}
+
+/* Laptop Large */
+@media only screen and (min-width: 1440px) {
+  canvas {
+    height: 75vw;
+  }
 }
 
 // Box
