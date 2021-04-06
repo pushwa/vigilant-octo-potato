@@ -56,7 +56,7 @@ function st() {
 // Glb Object
 const glbObject = [];
 
-// Load textures
+// Texture loader
 const textureLoader = new THREE.TextureLoader();
 
 // Material
@@ -214,9 +214,8 @@ function init() {
 
   // Particles
   const geometry = new THREE.BufferGeometry();
-  const vertices = [];
 
-  const textureLoader = new THREE.TextureLoader();
+  const vertices = [];
 
   const sprite1 = textureLoader.load('sprites/flake1.png');
   const sprite2 = textureLoader.load('sprites/flake2.png');
@@ -225,11 +224,13 @@ function init() {
   const sprite5 = textureLoader.load('sprites/flake5.png');
 
   const particleAmount = 3000;
+  const particleSpaceMax = 3000;
+  const particleSpaceMin = 2000;
 
   for (let i = 0; i < particleAmount; i++) {
-    const x = Math.random() * 3000 - 2000;
-    const y = Math.random() * 3000 - 2000;
-    const z = Math.random() * 3000 - 2000;
+    const x = Math.random() * particleSpaceMax - particleSpaceMin;
+    const y = Math.random() * particleSpaceMax - particleSpaceMin;
+    const z = Math.random() * particleSpaceMax - particleSpaceMin;
 
     vertices.push(x, y, z);
   }
@@ -239,19 +240,14 @@ function init() {
     new THREE.Float32BufferAttribute(vertices, 3)
   );
 
-  const parameters = [
-    [sprite2, 9],
-    [sprite3, 7],
-    [sprite1, 6],
-    [sprite5, 8],
-    [sprite4, 5],
-  ];
+  const spriteArray = [sprite2, sprite3, sprite1, sprite5, sprite4];
+  const sizeArray = [9, 7, 6, 8, 5];
 
   const materials = [];
 
-  for (let i = 0; i < parameters.length; i++) {
-    const sprite = parameters[i][0];
-    const size = parameters[i][1];
+  for (let i = 0; i < spriteArray.length; i++) {
+    const sprite = spriteArray[i];
+    const size = sizeArray[i];
 
     materials[i] = new THREE.PointsMaterial({
       map: sprite,
@@ -366,6 +362,7 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
+
     // -------------------------------------------
   } else if (laptop.matches) {
     // -------------------------------------------

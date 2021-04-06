@@ -17,7 +17,6 @@ canvas {
   -moz-transition: opacity 400ms;
   -ms-transition: opacity 400ms;
   -o-transition: opacity 400ms;
-  box-shadow: 0 0 40vw rgba(0, 0, 0, 0.9) inset;
   /*disablebluelinearoundcanvasonmobile*/
   outline: none;
 }
