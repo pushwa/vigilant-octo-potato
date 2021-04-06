@@ -88,11 +88,10 @@ function glbMaterial() {
   return mat;
 }
 
-//
-init();
-render();
+// Load after fully loaded
+window.addEventListener('load', init, false);
 
-//
+// Init
 function init() {
   // Scene
   scene = new THREE.Scene();
@@ -209,6 +208,9 @@ function init() {
     });
 
   // ----------------
+
+  //
+  render();
 }
 
 //
@@ -288,14 +290,14 @@ function render() {
     // -------------------------------------------
     // camera on scroll
     camera.position.x = 0.2 + -1.2 * scroll;
-    camera.position.y = -6 + -1.1 * scroll;
-    camera.position.z = 17 + 8.1 * scroll;
+    camera.position.y = -3 + -2.1 * scroll;
+    camera.position.z = 13 + 8.1 * scroll;
 
     camera.rotation.x = 0 + -0.7 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 1100) {
+    if (document.documentElement.scrollTop > 600) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;

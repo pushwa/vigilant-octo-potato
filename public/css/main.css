@@ -21,6 +21,12 @@ canvas {
   outline: none;
 }
 
+/* Tablet */
+@media only screen and (min-width: 768px) {
+  canvas {
+    height: 140vw;
+  }
+}
 /* Laptop */
 @media only screen and (min-width: 1024px) {
   canvas {
