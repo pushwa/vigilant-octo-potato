@@ -1,6 +1,6 @@
 //
 // Colors
-$bodyColor: #101011;
+$bodyColor: #121216;
 $boxColor: linear-gradient(90deg, #fc4a1a 0%, #f7b733 100%);
 
 // Body
@@ -25,6 +25,8 @@ canvas {
   -moz-transition: opacity 400ms;
   -ms-transition: opacity 400ms;
   -o-transition: opacity 400ms;
+
+  box-shadow: 0 0 40vw rgba(0, 0, 0, 0.9) inset;
 
   /*disablebluelinearoundcanvasonmobile*/
   outline: none;

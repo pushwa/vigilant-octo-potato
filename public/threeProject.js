@@ -97,7 +97,7 @@ function init() {
   scene = new THREE.Scene();
 
   // Fog
-  scene.fog = new THREE.Fog(0x020202, 18, 20, 4000);
+  scene.fog = new THREE.Fog(0x121216, 18, 20, 4000);
 
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
@@ -260,6 +260,9 @@ function render() {
     glbObject[i].rotation.z = 1.3 * scroll;
   }
 
+  // 3D Lut on scroll
+  params.intensity = 1 + 1.3 * scroll;
+
   // Media queries
   const mobile = window.matchMedia('(max-width: 425px)');
   const tablet = window.matchMedia('(max-width: 768px)');
@@ -282,9 +285,6 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
-
-    // 3D Lut on scroll
-    params.intensity = 1 + 1.4 * scroll;
     // -------------------------------------------
   } else if (tablet.matches) {
     // -------------------------------------------
@@ -302,9 +302,6 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
-
-    // 3D Lut on scroll
-    params.intensity = 1 + 0.7 * scroll;
     // -------------------------------------------
   } else if (laptop.matches) {
     // -------------------------------------------
@@ -323,9 +320,6 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
-
-    // 3D Lut on scroll
-    params.intensity = 1 + 0.9 * scroll;
     // -------------------------------------------
   } else if (laptopL.matches) {
     // -------------------------------------------
@@ -344,9 +338,6 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
-
-    // 3D Lut on scroll
-    params.intensity = 1 + 0.95 * scroll;
     // -------------------------------------------
   } else {
     // -------------------------------------------
@@ -365,9 +356,6 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
-
-    // 3D Lut on scroll
-    params.intensity = 1 + 0.95 * scroll;
     // -------------------------------------------
   }
 
