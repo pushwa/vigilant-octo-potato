@@ -19,13 +19,11 @@ canvas {
   height: 215vw;
   display: block;
   box-sizing: border-box;
-
-  transition: opacity 400ms;
-  -webkit-transition: opacity 400ms;
-  -moz-transition: opacity 400ms;
-  -ms-transition: opacity 400ms;
-  -o-transition: opacity 400ms;
-
+  transition: opacity 700ms;
+  -webkit-transition: opacity 700ms;
+  -moz-transition: opacity 700ms;
+  -ms-transition: opacity 700ms;
+  -o-transition: opacity 700ms;
   /*disablebluelinearoundcanvasonmobile*/
   outline: none;
 }

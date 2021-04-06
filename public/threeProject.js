@@ -212,9 +212,7 @@ function init() {
   // -------------------------------------------
   // Particles
 
-  // Particles
   const geometry = new THREE.BufferGeometry();
-
   const vertices = [];
 
   const sprite1 = textureLoader.load('sprites/flake1.png');
@@ -241,7 +239,7 @@ function init() {
   );
 
   const spriteArray = [sprite2, sprite3, sprite1, sprite5, sprite4];
-  const sizeArray = [9, 7, 6, 8, 5];
+  const sizeArray = [6, 3, 7, 4, 5];
 
   const materials = [];
 
@@ -262,7 +260,7 @@ function init() {
 
     particles.rotation.x = Math.random() * 8;
     particles.rotation.y = Math.random() * 6;
-    particles.rotation.z = Math.random() * 5;
+    particles.rotation.z = Math.random() * 4;
 
     scene.add(particles);
   }
@@ -322,6 +320,22 @@ function render() {
 
   // 3D Lut on scroll
   params.intensity = 1 + 1.3 * scroll;
+
+  // -------------------------------------------
+  // Particles
+
+  const particleTime = Date.now() * 0.00003;
+
+  for (let i = 0; i < scene.children.length; i++) {
+    const object = scene.children[i];
+
+    if (object instanceof THREE.Points) {
+      object.rotation.x = particleTime * (i < 5 ? i + 0.6 : -(i + 0.9));
+      object.rotation.y = particleTime * (i < 4 ? i + 0.3 : -(i + 1));
+      object.rotation.z = particleTime * (i < 3 ? i + 0.5 : -(i + 0.6));
+    }
+  }
+  // -------------------------------------------
 
   // Media queries
   const mobile = window.matchMedia('(max-width: 425px)');
@@ -394,7 +408,7 @@ function render() {
     camera.rotation.z = 0 + -0.3 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 500) {
+    if (document.documentElement.scrollTop > 450) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;
@@ -403,37 +417,22 @@ function render() {
   } else {
     // -------------------------------------------
     // camera on scroll
-    camera.position.x = 0.1 + -1.2 * scroll;
-    camera.position.y = -1.6 + -2.1 * scroll;
-    camera.position.z = 11 + 8 * scroll;
+    camera.position.x = 0.05 + -1.2 * scroll;
+    camera.position.y = -2.1 + -2.1 * scroll;
+    camera.position.z = 13 + 8 * scroll;
 
     camera.rotation.x = 0 + -0.5 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
     camera.rotation.z = 0 + -0.3 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 500) {
+    if (document.documentElement.scrollTop > 600) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;
     }
     // -------------------------------------------
   }
-
-  // -------------------------------------------
-  // Particles
-  const particleTime = Date.now() * 0.00004;
-
-  for (let i = 0; i < scene.children.length; i++) {
-    const object = scene.children[i];
-
-    if (object instanceof THREE.Points) {
-      object.rotation.x = particleTime * (i < 5 ? i + 1 : -(i + 0.9));
-      object.rotation.y = particleTime * (i < 4 ? i + 1 : -(i + 1));
-      object.rotation.z = particleTime * (i < 3 ? i + 1 : -(i + 0.6));
-    }
-  }
-  // -------------------------------------------
 
   // Stats
   //stats.update();
