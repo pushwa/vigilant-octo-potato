@@ -41,8 +41,7 @@ const lutMap = {
 //
 let scene, camera, renderer, stats;
 
-//
-let camTween1, camTween2;
+let tween, tweenMiddle, tweenBack;
 
 // Zoom button
 const zoomButton = document.getElementById('zoom');
@@ -142,40 +141,39 @@ function init() {
   //
   // Tween
 
-  let xTarget = 0;
-  let yTarget = -2;
-  let zTarget = 7.5;
+  function panCam() {
+    const p = { x: 0.2, y: -3, z: 13 };
+    const tg = { x: 0, y: -2, z: 7.5 };
 
-  let xPosition = 0.2;
-  let yPosition = -3;
-  let zPosition = 13;
-
-  const tweenDuration = 2000;
-
-  function panCam(xTarget, yTarget, zTarget, tweenDuration) {
-    const target = { x: xTarget, y: yTarget, z: zTarget };
-    const position = { x: xPosition, y: yPosition, z: zPosition };
-
-    camTween1 = new TWEEN.Tween(camera.position)
-      .to(target, tweenDuration)
+    tween = new TWEEN.Tween(camera.position)
+      .to(tg, 2000)
       .easing(TWEEN.Easing.Elastic.InOut)
       .onComplete(function () {
-        camera.position.copy(target);
+        camera.position.copy(tg);
       });
 
-    camTween2 = new TWEEN.Tween(camera.position)
-      .to(position, tweenDuration)
+    tweenMiddle = new TWEEN.Tween(camera.position)
+      .to(tg, 2000)
       .easing(TWEEN.Easing.Elastic.InOut)
       .onComplete(function () {
-        camera.position.copy(position);
+        camera.position.copy(tg);
       });
 
-    camTween1.chain(camTween2);
-    camTween1.start();
+    tweenBack = new TWEEN.Tween(camera.position)
+      .to(p, 3000)
+      .easing(TWEEN.Easing.Elastic.InOut)
+      .onComplete(function () {
+        camera.position.copy(p);
+      });
+
+    tween.chain(tweenMiddle);
+    tweenMiddle.chain(tweenBack);
+
+    tween.start();
   }
 
   zoomButton.addEventListener('click', () => {
-    panCam(xTarget, yTarget, zTarget, tweenDuration);
+    panCam();
   });
 
   //
