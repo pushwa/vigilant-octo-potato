@@ -41,6 +41,9 @@ const lutMap = {
 //
 let scene, camera, renderer, stats;
 
+//
+let camTween1, camTween2;
+
 // Zoom button
 const zoomButton = document.getElementById('zoom');
 
@@ -142,20 +145,33 @@ function init() {
   let xTarget = 0;
   let yTarget = -2;
   let zTarget = 7.5;
+
+  let xPosition = 0.2;
+  let yPosition = -3;
+  let zPosition = 13;
+
   const tweenDuration = 2000;
 
   function panCam(xTarget, yTarget, zTarget, tweenDuration) {
     const target = { x: xTarget, y: yTarget, z: zTarget };
+    const position = { x: xPosition, y: yPosition, z: zPosition };
 
-    const camTween = new TWEEN.Tween(camera.position)
+    camTween1 = new TWEEN.Tween(camera.position)
       .to(target, tweenDuration)
-      .easing(TWEEN.Easing.Quadratic.Out)
+      .easing(TWEEN.Easing.Elastic.InOut)
       .onComplete(function () {
         camera.position.copy(target);
-      })
-      .start();
+      });
 
-    return camTween;
+    camTween2 = new TWEEN.Tween(camera.position)
+      .to(position, tweenDuration)
+      .easing(TWEEN.Easing.Elastic.InOut)
+      .onComplete(function () {
+        camera.position.copy(position);
+      });
+
+    camTween1.chain(camTween2);
+    camTween1.start();
   }
 
   zoomButton.addEventListener('click', () => {
