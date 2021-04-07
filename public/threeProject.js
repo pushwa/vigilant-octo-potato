@@ -14,6 +14,8 @@ import { GUI } from './jsm/libs/dat.gui.module.js';
 
 import Stats from './jsm/libs/stats.module.js';
 
+import { TWEEN } from './jsm/libs/tween.module.min.js';
+
 // ----------------------------------------------------------------------------------------
 
 let gui;
@@ -38,6 +40,9 @@ const lutMap = {
 
 //
 let scene, camera, renderer, stats;
+
+// Zoom button
+const zoomButton = document.getElementById('zoom');
 
 // Canvas
 const canvas = document.getElementById('canvas');
@@ -102,7 +107,7 @@ function init() {
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
   camera.lookAt(0, 0, 0);
-  //camera.position.set(0, 0, 0);
+  camera.position.set(0, 0, 0);
 
   // Renderer
   renderer = new THREE.WebGLRenderer({
@@ -125,6 +130,45 @@ function init() {
   // Shadow settings
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  // -------------------------------------------
+
+  //
+  //
+  //
+  //
+  // Tween
+
+  let xTarget = 0;
+  let yTarget = -2;
+  let zTarget = 7.5;
+  const tweenDuration = 2000;
+
+  function panCam(xTarget, yTarget, zTarget, tweenDuration) {
+    const target = { x: xTarget, y: yTarget, z: zTarget };
+
+    const camTween = new TWEEN.Tween(camera.position)
+      .to(target, tweenDuration)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onComplete(function () {
+        camera.position.copy(target);
+      })
+      .start();
+
+    return camTween;
+  }
+
+  zoomButton.addEventListener('click', () => {
+    panCam(xTarget, yTarget, zTarget, tweenDuration);
+  });
+
+  //
+  //
+  //
+  //
+  //
+
+  // -------------------------------------------
 
   // ----------------------------------------------------------------------------------------
 
@@ -264,8 +308,6 @@ function init() {
 
     scene.add(particles);
   }
-
-  // -------------------------------------------
 
   //
   render();
@@ -436,6 +478,9 @@ function render() {
 
   // Stats
   //stats.update();
+
+  //
+  TWEEN.update();
 
   //
   composer.render();
