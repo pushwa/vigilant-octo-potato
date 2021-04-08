@@ -41,10 +41,14 @@ const lutMap = {
 //
 let scene, camera, renderer, stats;
 
+// Tween
 let tween, tweenMiddle, tweenBack;
+const p = { x: 0.2, y: -3, z: 13 };
+const tg = { x: 0, y: -2, z: 7.5 };
 
 // Zoom button
-const zoomButton = document.getElementById('zoom');
+const zoomOutButton = document.getElementById('zoomOut');
+const zoomInButton = document.getElementById('zoomIn');
 
 // Canvas
 const canvas = document.getElementById('canvas');
@@ -140,11 +144,7 @@ function init() {
   //
   //
   // Tween
-
-  function panCam() {
-    const p = { x: 0.2, y: -3, z: 13 };
-    const tg = { x: 0, y: -2, z: 7.5 };
-
+  function panCam1() {
     tween = new TWEEN.Tween(camera.position)
       .to(tg, 2000)
       .easing(TWEEN.Easing.Elastic.InOut)
@@ -153,14 +153,14 @@ function init() {
       });
 
     tweenMiddle = new TWEEN.Tween(camera.position)
-      .to(tg, 2000)
+      .to(tg, 5000)
       .easing(TWEEN.Easing.Elastic.InOut)
       .onComplete(function () {
         camera.position.copy(tg);
       });
 
     tweenBack = new TWEEN.Tween(camera.position)
-      .to(p, 3000)
+      .to(p, 2000)
       .easing(TWEEN.Easing.Elastic.InOut)
       .onComplete(function () {
         camera.position.copy(p);
@@ -168,12 +168,19 @@ function init() {
 
     tween.chain(tweenMiddle);
     tweenMiddle.chain(tweenBack);
-
     tween.start();
+
+    zoomInButton.addEventListener('click', () => {
+      tweenBack.start();
+      setTimeout(() => {
+        tweenMiddle.stop();
+        tweenBack.stop();
+      }, 2000);
+    });
   }
 
-  zoomButton.addEventListener('click', () => {
-    panCam();
+  zoomOutButton.addEventListener('click', () => {
+    panCam1();
   });
 
   //
@@ -347,6 +354,9 @@ function render() {
     console.log(width + ' PX');
   }
 
+  // Scroller
+  const scroll = scrollY / (100 - innerHeight);
+
   // ----------------------------------------------------------------------------------------
 
   lutPass.enabled = params.enabled && Boolean(lutMap[params.lut]);
@@ -357,6 +367,9 @@ function render() {
     lutPass.lut = params.use2DLut ? lut.texture : lut.texture3D;
   }
 
+  // 3D Lut on scroll
+  params.intensity = 0.55 + 1.3 * scroll;
+
   // ----------------------------------------------------------------------------------------
 
   // Object animation
@@ -366,16 +379,10 @@ function render() {
     glbObject[i].rotation.x = (time / 4) * Math.PI;
   }
 
-  // Scroller
-  const scroll = scrollY / (100 - innerHeight);
-
   // Object rotate on scroll
   for (let i = 0; i < glbObject.length; i++) {
     glbObject[i].rotation.z = 1.3 * scroll;
   }
-
-  // 3D Lut on scroll
-  params.intensity = 1 + 1.3 * scroll;
 
   // -------------------------------------------
   // Particles
