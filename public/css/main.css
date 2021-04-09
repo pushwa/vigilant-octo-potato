@@ -40,33 +40,70 @@ canvas {
   }
 }
 .theZoomOut {
-  background-color: white;
-  width: 10vw;
-  height: 10vw;
-  position: absolute;
-  top: 20vw;
-  left: 15vw;
+  background-color: #ffffff;
+  width: 9vw;
+  height: 9vw;
+  position: fixed;
+  top: 35vw;
+  left: 23vw;
   opacity: 0.5;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+  animation: blink 1700ms ease-in-out infinite;
+  -webkit-animation: blink 1700ms ease-in-out infinite;
+  transition: opacity 300ms;
+  -webkit-transition: opacity 300ms;
+  -moz-transition: opacity 300ms;
+  -ms-transition: opacity 300ms;
+  -o-transition: opacity 300ms;
 }
 
+@keyframes blink {
+  0% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8);
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+  }
+}
 .theZoomIn {
-  background-color: white;
-  width: 10vw;
-  height: 10vw;
-  position: absolute;
-  top: 45vw;
-  right: 15vw;
-  opacity: 0.5;
+  background-color: #ffffff;
+  width: 9vw;
+  height: 9vw;
+  position: fixed;
+  top: 55vw;
+  right: 27vw;
+  opacity: 0;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+  animation: blink 1700ms ease-in-out infinite;
+  -webkit-animation: blink 1700ms ease-in-out infinite;
+  transition: opacity 300ms;
+  -webkit-transition: opacity 300ms;
+  -moz-transition: opacity 300ms;
+  -ms-transition: opacity 300ms;
+  -o-transition: opacity 300ms;
 }
 
 .box {

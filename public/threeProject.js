@@ -144,24 +144,57 @@ function init() {
   //
   //
   // Tween
-  function panCam1() {
+  function panCam() {
+    const speed = 1500;
+    const middleTime = 10000;
+
+    // Tween Easing
+
+    const currentEase = 19;
+    const easing = [
+      TWEEN.Easing.Quadratic.In, //     0
+      TWEEN.Easing.Quadratic.Out, //    1
+      TWEEN.Easing.Quadratic.InOut, //  2
+      TWEEN.Easing.Cubic.In, //          3
+      TWEEN.Easing.Cubic.Out, //         4
+      TWEEN.Easing.Cubic.InOut, //       5
+      TWEEN.Easing.Sinusoidal.in, //     6
+      TWEEN.Easing.Sinusoidal.Out, //    7
+      TWEEN.Easing.Sinusoidal.InOut, //  8
+      TWEEN.Easing.Exponential.In, //    9
+      TWEEN.Easing.Exponential.Out, //   10
+      TWEEN.Easing.Exponential.InOut, // 11
+      TWEEN.Easing.Circular.In, //       12
+      TWEEN.Easing.Circular.Out, //      13
+      TWEEN.Easing.Circular.InOut, //    14
+      TWEEN.Easing.Elastic.In, //        15
+      TWEEN.Easing.Elastic.Out, //       16
+      TWEEN.Easing.Elastic.InOut, //     17
+      TWEEN.Easing.Back.In, //           18
+      TWEEN.Easing.Back.Out, //          19
+      TWEEN.Easing.Back.InOut, //        20
+      TWEEN.Easing.Bounce.In, //         21
+      TWEEN.Easing.Bounce.Out, //        22
+      TWEEN.Easing.Bounce.InOut, //      23
+    ];
+
     tween = new TWEEN.Tween(camera.position)
-      .to(tg, 2000)
-      .easing(TWEEN.Easing.Elastic.InOut)
+      .to(tg, speed)
+      .easing(easing[currentEase])
       .onComplete(function () {
         camera.position.copy(tg);
       });
 
     tweenMiddle = new TWEEN.Tween(camera.position)
-      .to(tg, 5000)
-      .easing(TWEEN.Easing.Elastic.InOut)
+      .to(tg, middleTime)
+      .easing(easing[currentEase])
       .onComplete(function () {
         camera.position.copy(tg);
       });
 
     tweenBack = new TWEEN.Tween(camera.position)
-      .to(p, 2000)
-      .easing(TWEEN.Easing.Elastic.InOut)
+      .to(p, speed)
+      .easing(easing[currentEase])
       .onComplete(function () {
         camera.position.copy(p);
       });
@@ -175,12 +208,12 @@ function init() {
       setTimeout(() => {
         tweenMiddle.stop();
         tweenBack.stop();
-      }, 2000);
+      }, speed);
     });
   }
 
   zoomOutButton.addEventListener('click', () => {
-    panCam1();
+    panCam();
   });
 
   //
