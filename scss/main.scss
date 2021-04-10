@@ -1,7 +1,17 @@
 //
-// Colors
+/* ------------------------------------- */
+/* Colors */
+/* ------------------------------------- */
+
 $bodyColor: #121216;
 $boxColor: linear-gradient(90deg, #fc4a1a 0%, #f7b733 100%);
+$theZoomOutColor: linear-gradient(155deg, #00b09b 0%, #96c93d 100%);
+$theZoomInColor: #ffffff;
+$theInfoColor: linear-gradient(155deg, #00b09b 0%, #96c93d 100%);
+
+/* ------------------------------------- */
+/* Stuff */
+/* ------------------------------------- */
 
 // Body
 body {
@@ -19,57 +29,109 @@ canvas {
   height: 215vw;
   display: block;
   box-sizing: border-box;
+  z-index: -1;
+
+  /* Disable blue line around canvas on mobile*/
+  outline: none;
+
   transition: opacity 700ms;
   -webkit-transition: opacity 700ms;
   -moz-transition: opacity 700ms;
   -ms-transition: opacity 700ms;
   -o-transition: opacity 700ms;
-  /*disablebluelinearoundcanvasonmobile*/
-  outline: none;
-}
-
-/* Tablet */
-@media only screen and (min-width: 768px) {
-  canvas {
-    height: 140vw;
-  }
-}
-
-/* Laptop */
-@media only screen and (min-width: 1024px) {
-  canvas {
-    height: 90vw;
-  }
-}
-
-/* Laptop Large */
-@media only screen and (min-width: 1440px) {
-  canvas {
-    height: 75vw;
-  }
 }
 
 .theZoomOut {
-  background-color: #ffffff;
-  width: 9vw;
-  height: 9vw;
-  position: fixed;
-  top: 35vw;
-  left: 23vw;
-  opacity: 0.5;
+  background: $theZoomOutColor;
+  width: 17vw;
+  height: 17vw;
+  position: absolute;
+  top: 45vw;
+  left: 18vw;
+  z-index: 999;
+  user-select: none;
+  opacity: 1;
+
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+
   animation: blink 1700ms ease-in-out infinite;
   -webkit-animation: blink 1700ms ease-in-out infinite;
-  transition: opacity 300ms;
-  -webkit-transition: opacity 300ms;
-  -moz-transition: opacity 300ms;
-  -ms-transition: opacity 300ms;
-  -o-transition: opacity 300ms;
+
+  transition: opacity 1100ms;
+  -webkit-transition: opacity 1100ms;
+  -moz-transition: opacity 1100ms;
+  -ms-transition: opacity 1100ms;
+  -o-transition: opacity 1100ms;
 }
+
+.theInfo {
+  background: $theInfoColor;
+  width: 65vw;
+  height: 65vw;
+  position: absolute;
+  top: 65vw;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  user-select: none;
+  opacity: 0;
+
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+
+  transition: opacity 1500ms;
+  -webkit-transition: opacity 1500ms;
+  -moz-transition: opacity 1500ms;
+  -ms-transition: opacity 1500ms;
+  -o-transition: opacity 1500ms;
+}
+
+.theZoomIn {
+  background-color: $theZoomInColor;
+  width: 17vw;
+  height: 17vw;
+  position: absolute;
+  top: 130vw;
+  left: 18vw;
+  user-select: none;
+  opacity: 0;
+
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+
+  animation: blink 1700ms ease-in-out infinite;
+  -webkit-animation: blink 1700ms ease-in-out infinite;
+
+  transition: opacity 1100ms;
+  -webkit-transition: opacity 1100ms;
+  -moz-transition: opacity 1100ms;
+  -ms-transition: opacity 1100ms;
+  -o-transition: opacity 1100ms;
+}
+
+// Box
+.box {
+  background: $boxColor;
+  width: 100vw;
+  height: 105vw;
+  position: absolute;
+  top: 215vw;
+  z-index: 999;
+}
+
+/* ------------------------------------- */
+/* Animations */
+/* ------------------------------------- */
 
 @keyframes blink {
   0% {
@@ -97,31 +159,104 @@ canvas {
   }
 }
 
-.theZoomIn {
-  background-color: #ffffff;
-  width: 9vw;
-  height: 9vw;
-  position: fixed;
-  top: 55vw;
-  right: 27vw;
-  opacity: 0;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  animation: blink 1700ms ease-in-out infinite;
-  -webkit-animation: blink 1700ms ease-in-out infinite;
-  transition: opacity 300ms;
-  -webkit-transition: opacity 300ms;
-  -moz-transition: opacity 300ms;
-  -ms-transition: opacity 300ms;
-  -o-transition: opacity 300ms;
+/* ------------------------------------- */
+/* Media queries */
+/* ------------------------------------- */
+
+/* Tablet */
+@media only screen and (min-width: 768px) {
+  canvas {
+    height: 140vw;
+  }
+
+  .theZoomOut {
+    background: $theZoomOutColor;
+    width: 9vw;
+    height: 9vw;
+    top: 33vw;
+    left: 30vw;
+  }
+
+  .theInfo {
+    width: 45vw;
+    height: 45vw;
+    top: 46vw;
+  }
+
+  .theZoomIn {
+    width: 9vw;
+    height: 9vw;
+    top: 80vw;
+    left: 20vw;
+  }
+
+  .box {
+    top: 140vw;
+  }
 }
 
-// Box
-.box {
-  width: 100vw;
-  height: 105vw;
-  background: $boxColor;
+/* Laptop */
+@media only screen and (min-width: 1024px) {
+  canvas {
+    height: 90vw;
+  }
+
+  .theZoomOut {
+    background: $theZoomOutColor;
+    width: 4vw;
+    height: 4vw;
+    top: 14vw;
+    left: 40vw;
+  }
+
+  .theInfo {
+    width: 34vw;
+    height: 34vw;
+    top: 9vw;
+    left: 43vw;
+  }
+
+  .theZoomIn {
+    width: 4vw;
+    height: 4vw;
+    top: 39vw;
+    left: 54vw;
+  }
+
+  .box {
+    top: 90vw;
+  }
+}
+
+/* Laptop Large */
+@media only screen and (min-width: 1440px) {
+  canvas {
+    height: 75vw;
+  }
+
+  .theZoomOut {
+    background: $theZoomOutColor;
+    width: 4vw;
+    height: 4vw;
+    top: 16vw;
+    left: 40vw;
+  }
+
+  .theInfo {
+    width: 34vw;
+    height: 34vw;
+    top: 9vw;
+    left: 43vw;
+  }
+
+  .theZoomIn {
+    width: 4vw;
+    height: 4vw;
+    top: 39vw;
+    left: 54vw;
+  }
+
+  .box {
+    top: 75vw;
+  }
 }

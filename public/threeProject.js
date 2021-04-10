@@ -43,8 +43,7 @@ let scene, camera, renderer, stats;
 
 // Tween
 let tween, tweenMiddle, tweenBack;
-const p = { x: 0.2, y: -3, z: 13 };
-const tg = { x: 0, y: -2, z: 7.5 };
+let p, tg;
 
 // Zoom button
 const zoomOutButton = document.getElementById('zoomOut');
@@ -113,7 +112,7 @@ function init() {
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
   camera.lookAt(0, 0, 0);
-  camera.position.set(0, 0, 0);
+  //camera.position.set(0, 0, 0);
 
   // Renderer
   renderer = new THREE.WebGLRenderer({
@@ -146,7 +145,7 @@ function init() {
   // Tween
   function panCam() {
     const speed = 1500;
-    const middleTime = 10000;
+    const middleTime = 120000;
 
     // Tween Easing
 
@@ -401,7 +400,7 @@ function render() {
   }
 
   // 3D Lut on scroll
-  params.intensity = 0.55 + 1.3 * scroll;
+  params.intensity = 1 + 1.3 * scroll;
 
   // ----------------------------------------------------------------------------------------
 
@@ -441,10 +440,21 @@ function render() {
 
   if (mobile.matches) {
     // -------------------------------------------
+
+    // Camera position
+    const camPosMobileX = 0.2;
+    const camPosMobileY = -2.5;
+    const camPosMobileZ = 11;
+
+    // Tween camera target
+    const camTargetMobileX = 0;
+    const camTargetMobileY = -2;
+    const camTargetMobileZ = 7.7;
+
     // camera on scroll
-    camera.position.x = 0.2 + -1.2 * scroll;
-    camera.position.y = -1.5 + 1.6 * scroll;
-    camera.position.z = 11 + 8.1 * scroll;
+    camera.position.x = camPosMobileX + -1.2 * scroll;
+    camera.position.y = camPosMobileY + 1.6 * scroll;
+    camera.position.z = camPosMobileZ + 8.1 * scroll;
 
     camera.rotation.x = 0 + -1.2 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
@@ -455,13 +465,29 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
+
+    //tween
+    p = { x: camPosMobileX, y: camPosMobileY, z: camPosMobileZ }; // Must be the same as camera.positon
+    tg = { x: camTargetMobileX, y: camTargetMobileY, z: camTargetMobileZ }; // Change this if you need to change the target position
+
     // -------------------------------------------
   } else if (tablet.matches) {
     // -------------------------------------------
+
+    // Camera position
+    const camPosTabletX = 0.1;
+    const camPosTabletY = -3.5;
+    const camPosTabletZ = 14;
+
+    // Tween camera target
+    const camTargetTabletX = 0;
+    const camTargetTabletY = -2;
+    const camTargetTabletZ = 7.5;
+
     // camera on scroll
-    camera.position.x = 0.2 + -1.2 * scroll;
-    camera.position.y = -3 + -2.1 * scroll;
-    camera.position.z = 13 + 8.1 * scroll;
+    camera.position.x = camPosTabletX + -1.2 * scroll;
+    camera.position.y = camPosTabletY + -2.1 * scroll;
+    camera.position.z = camPosTabletZ + 8.1 * scroll;
 
     camera.rotation.x = 0 + -0.7 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
@@ -473,13 +499,28 @@ function render() {
       canvas.style.opacity = 1;
     }
 
+    //tween
+    p = { x: camPosTabletX, y: camPosTabletY, z: camPosTabletZ }; // Must be the same as camera.positon
+    tg = { x: camTargetTabletX, y: camTargetTabletY, z: camTargetTabletZ }; // Change this if you need to change the target position
+
     // -------------------------------------------
   } else if (laptop.matches) {
     // -------------------------------------------
+
+    // Camera position
+    const camPosLaptopX = 0.2;
+    const camPosLaptopY = -2.5;
+    const camPosLaptopZ = 10;
+
+    // Tween camera target
+    const camTargetLaptopX = 0;
+    const camTargetLaptopY = -1.7;
+    const camTargetLaptopZ = 6.5;
+
     // camera on scroll
-    camera.position.x = 0.2 + -1.2 * scroll;
-    camera.position.y = -1 + -2.1 * scroll;
-    camera.position.z = 10 + 8 * scroll;
+    camera.position.x = camPosLaptopX + -1.2 * scroll;
+    camera.position.y = camPosLaptopY + -2.1 * scroll;
+    camera.position.z = camPosLaptopZ + 8 * scroll;
 
     camera.rotation.x = 0 + -0.51 * scroll;
     camera.rotation.y = 0 + -0.13 * scroll;
@@ -491,13 +532,29 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
+
+    //tween
+    p = { x: camPosLaptopX, y: camPosLaptopY, z: camPosLaptopZ }; // Must be the same as camera.positon
+    tg = { x: camTargetLaptopX, y: camTargetLaptopY, z: camTargetLaptopZ }; // Change this if you need to change the target position
+
     // -------------------------------------------
   } else if (laptopL.matches) {
     // -------------------------------------------
+
+    // Camera position
+    const camPosLaptopLX = 0.1;
+    const camPosLaptopLY = -2.5;
+    const camPosLaptopLZ = 11;
+
+    // Tween camera target
+    const camTargetLaptopLX = 0;
+    const camTargetLaptopLY = -1.5;
+    const camTargetLaptopLZ = 6.5;
+
     // camera on scroll
-    camera.position.x = 0.1 + -1.2 * scroll;
-    camera.position.y = -1.3 + -2.1 * scroll;
-    camera.position.z = 11 + 10 * scroll;
+    camera.position.x = camPosLaptopLX + -1.2 * scroll;
+    camera.position.y = camPosLaptopLY + -2.1 * scroll;
+    camera.position.z = camPosLaptopLZ + 10 * scroll;
 
     camera.rotation.x = 0 + -0.5 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
@@ -509,13 +566,29 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
+
+    //tween
+    p = { x: camPosLaptopLX, y: camPosLaptopLY, z: camPosLaptopLZ }; // Must be the same as camera.positon
+    tg = { x: camTargetLaptopLX, y: camTargetLaptopLY, z: camTargetLaptopLZ }; // Change this if you need to change the target position
+
     // -------------------------------------------
   } else {
     // -------------------------------------------
+
+    // Camera position
+    const camPosLaptopBigX = 0.05;
+    const camPosLaptopBigY = -2.7;
+    const camPosLaptopBigZ = 13;
+
+    // Tween camera target
+    const camTargetLaptopBigX = 0.1;
+    const camTargetLaptopBigY = -1.4;
+    const camTargetLaptopBigZ = 6.5;
+
     // camera on scroll
-    camera.position.x = 0.05 + -1.2 * scroll;
-    camera.position.y = -2.1 + -2.1 * scroll;
-    camera.position.z = 13 + 8 * scroll;
+    camera.position.x = camPosLaptopBigX + -1.2 * scroll;
+    camera.position.y = camPosLaptopBigY + -2.1 * scroll;
+    camera.position.z = camPosLaptopBigZ + 8 * scroll;
 
     camera.rotation.x = 0 + -0.5 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
@@ -527,6 +600,15 @@ function render() {
     } else {
       canvas.style.opacity = 1;
     }
+
+    //tween
+    p = { x: camPosLaptopBigX, y: camPosLaptopBigY, z: camPosLaptopBigZ }; // Must be the same as camera.positon
+
+    tg = {
+      x: camTargetLaptopBigX,
+      y: camTargetLaptopBigY,
+      z: camTargetLaptopBigZ,
+    }; // Change this if you need to change the target position
     // -------------------------------------------
   }
 

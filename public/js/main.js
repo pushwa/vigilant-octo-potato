@@ -1,39 +1,32 @@
-//
-//
-const body = document.querySelector('body');
-const zoomOutButton = document.getElementById('zoomOut');
-const zoomInButton = document.getElementById('zoomIn');
+// ---------------------------
+// Buttons fade in / Out
+// ---------------------------
 
-let clicked = 0;
+const theZoomOut = document.getElementById('zoomOut');
+const theZoomIn = document.getElementById('zoomIn');
+const infoBox = document.getElementById('info');
 
-zoomOutButton.addEventListener('click', () => {
-  zoomInButton.style.opacity = 0.5;
-  zoomOutButton.style.opacity = 0;
+fadeInOutOnClick();
 
-  clicked++;
+function fadeInOutOnClick() {
+  theZoomOut.addEventListener('click', () => {
+    infoBox.style.opacity = 1;
+    theZoomOut.style.opacity = 0;
 
-  window.onscroll = () => {
-    if (clicked < 1) {
-      if (document.documentElement.scrollTop > 10) {
-        zoomOutButton.style.opacity = 0;
-      } else {
-        zoomOutButton.style.opacity = 0.5;
-      }
-    }
-  };
-});
+    setTimeout(() => {
+      theZoomIn.style.opacity = 1;
+    }, 300);
+  });
 
-zoomInButton.addEventListener('click', () => {
-  zoomInButton.style.opacity = 0;
-  zoomOutButton.style.opacity = 0.5;
-});
+  theZoomIn.addEventListener('click', () => {
+    theZoomIn.style.opacity = 0;
 
-window.onscroll = () => {
-  if (clicked < 1 || clicked >= 1) {
-    if (document.documentElement.scrollTop > 10) {
-      zoomOutButton.style.opacity = 0;
-    } else {
-      zoomOutButton.style.opacity = 0.5;
-    }
-  }
-};
+    setTimeout(() => {
+      theZoomOut.style.opacity = 1;
+    }, 1100);
+
+    setTimeout(() => {
+      infoBox.style.opacity = 0;
+    }, 600);
+  });
+}
