@@ -46,7 +46,7 @@ canvas {
   width: 15vw;
   height: 15vw;
   position: fixed;
-  top: 44vw;
+  top: 35vw;
   left: 18vw;
   z-index: 999;
   user-select: none;
@@ -70,10 +70,10 @@ canvas {
 
 .theInfo {
   background: $theInfoColor;
-  width: 62vw;
-  height: 62vw;
+  width: 70vw;
+  height: 70vw;
   position: fixed;
-  top: 63vw;
+  top: 56vw;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -178,16 +178,16 @@ canvas {
   }
 
   .theInfo {
-    width: 52vw;
-    height: 52vw;
-    top: 47vw;
+    width: 67vw;
+    height: 67vw;
+    top: 38vw;
   }
 
   .theZoomIn {
     width: 8vw;
     height: 8vw;
-    top: 87vw;
-    left: 17vw;
+    top: 89vw;
+    left: 10vw;
   }
 
   .box {
@@ -205,14 +205,14 @@ canvas {
     background: $theZoomOutColor;
     width: 4vw;
     height: 4vw;
-    top: 20vw;
-    left: 37vw;
+    top: 16vw;
+    left: 39vw;
   }
 
   .theInfo {
-    width: 34vw;
-    height: 34vw;
-    top: 9vw;
+    width: 42vw;
+    height: 42vw;
+    top: 5vw;
     left: 43vw;
   }
 
@@ -220,7 +220,7 @@ canvas {
     width: 4vw;
     height: 4vw;
     top: 39vw;
-    left: 54vw;
+    left: 48vw;
   }
 
   .box {
@@ -243,9 +243,9 @@ canvas {
   }
 
   .theInfo {
-    width: 34vw;
-    height: 34vw;
-    top: 9vw;
+    width: 43vw;
+    height: 43vw;
+    top: 5vw;
     left: 43vw;
   }
 
@@ -253,7 +253,7 @@ canvas {
     width: 4vw;
     height: 4vw;
     top: 39vw;
-    left: 54vw;
+    left: 48vw;
   }
 
   .box {

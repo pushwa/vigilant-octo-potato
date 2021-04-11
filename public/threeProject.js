@@ -443,21 +443,21 @@ function render() {
 
     // Camera position
     const camPosMobileX = 0;
-    const camPosMobileY = -2.5;
-    const camPosMobileZ = 11;
+    const camPosMobileY = -3.8;
+    const camPosMobileZ = 13;
 
     // Tween camera target
     const camTargetMobileX = 0;
-    const camTargetMobileY = -2;
-    const camTargetMobileZ = 7.7;
+    const camTargetMobileY = -2.4;
+    const camTargetMobileZ = 8.3;
 
     // camera on scroll
     camera.position.x = camPosMobileX + -0.1 * scroll;
-    camera.position.y = camPosMobileY + -5.1 * scroll;
+    camera.position.y = camPosMobileY + -6.1 * scroll;
     camera.position.z = camPosMobileZ + 8.1 * scroll;
 
     // camera on rotation
-    camera.rotation.x = 0 + -0.5 * scroll;
+    camera.rotation.x = 0 + -0.4 * scroll;
     camera.rotation.y = 0 + 0.1 * scroll;
 
     // Fade out on scroll
@@ -485,8 +485,8 @@ function render() {
 
     // Tween camera target
     const camTargetTabletX = 0;
-    const camTargetTabletY = -2;
-    const camTargetTabletZ = 7.5;
+    const camTargetTabletY = -2.2;
+    const camTargetTabletZ = 7.8;
 
     // camera on rotation
     camera.position.x = camPosTabletX + -1.2 * scroll;
@@ -522,8 +522,8 @@ function render() {
 
     // Tween camera target
     const camTargetLaptopX = 0;
-    const camTargetLaptopY = -1.7;
-    const camTargetLaptopZ = 6.5;
+    const camTargetLaptopY = -2.2;
+    const camTargetLaptopZ = 7.5;
 
     // camera on scroll
     camera.position.x = camPosLaptopX + -1.2 * scroll;
@@ -555,13 +555,13 @@ function render() {
 
     // Camera position
     const camPosLaptopLX = 0;
-    const camPosLaptopLY = -2.5;
+    const camPosLaptopLY = -2.7;
     const camPosLaptopLZ = 11;
 
     // Tween camera target
-    const camTargetLaptopLX = 0;
-    const camTargetLaptopLY = -1.5;
-    const camTargetLaptopLZ = 6.5;
+    const camTargetLaptopLX = 0.1;
+    const camTargetLaptopLY = -1.7;
+    const camTargetLaptopLZ = 7.5;
 
     // camera on scroll
     camera.position.x = camPosLaptopLX + -1.2 * scroll;
@@ -597,24 +597,24 @@ function render() {
     const camPosLaptopBigZ = 13;
 
     // Tween camera target
-    const camTargetLaptopBigX = 0.1;
-    const camTargetLaptopBigY = -1.4;
-    const camTargetLaptopBigZ = 6.5;
+    const camTargetLaptopBigX = 0.4;
+    const camTargetLaptopBigY = -1.5;
+    const camTargetLaptopBigZ = 7.5;
 
     // camera on scroll
     camera.position.x = camPosLaptopBigX + -1.2 * scroll;
-    camera.position.y = camPosLaptopBigY + -3.1 * scroll;
-    camera.position.z = camPosLaptopBigZ + 8 * scroll;
+    camera.position.y = camPosLaptopBigY + -4.3 * scroll;
+    camera.position.z = camPosLaptopBigZ + 8.1 * scroll;
 
     // camera on rotation
-    camera.rotation.x = 0 + -0.5 * scroll;
+    camera.rotation.x = 0 + -0.4 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
     camera.rotation.z = 0 + -0.3 * scroll;
 
     // Fade out on scroll
     if (
       document.body.scrollTop > 600 ||
-      document.documentElement.scrollTop > 600
+      document.documentElement.scrollTop > 650
     ) {
       canvas.style.opacity = 0;
     } else {
