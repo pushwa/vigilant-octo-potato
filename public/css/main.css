@@ -28,6 +28,21 @@ body {
   -o-transition: opacity 700ms;
 }
 
+.bl {
+  background-color: #111111;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  z-index: 300;
+  transition: opacity 1100ms;
+  -webkit-transition: opacity 1100ms;
+  -moz-transition: opacity 1100ms;
+  -ms-transition: opacity 1100ms;
+  -o-transition: opacity 1100ms;
+}
+
 .theZoomOut {
   background: linear-gradient(155deg, #00b09b 0%, #96c93d 100%);
   width: 15vw;
@@ -63,6 +78,7 @@ body {
   margin: 0 auto;
   user-select: none;
   opacity: 0;
+  z-index: 700;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -109,6 +125,7 @@ body {
   left: 18vw;
   user-select: none;
   opacity: 0;
+  z-index: 700;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;

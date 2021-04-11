@@ -1,6 +1,9 @@
 // ---------------------------
 // Buttons fade in / Out
 // ---------------------------
+
+const black = document.getElementById('black');
+
 const theZoomOutButton = document.getElementById('zoomOut');
 const theZoomInButton = document.getElementById('zoomIn');
 const infoBox = document.getElementById('info');
@@ -14,10 +17,15 @@ fadeInOutOnClick2();
 //
 //
 
+//
+//
+//
+
 function fadeInOutOnClick1() {
   theZoomOutButton.addEventListener('click', () => {
     infoBox.style.opacity = '0.8';
     theZoomOutButton.style.opacity = '0';
+    black.style.opacity = '0.6';
 
     setTimeout(() => {
       theZoomInButton.style.opacity = '0.8';
@@ -26,6 +34,7 @@ function fadeInOutOnClick1() {
 
   theZoomInButton.addEventListener('click', () => {
     theZoomInButton.style.opacity = '0';
+    black.style.opacity = '0';
 
     setTimeout(() => {
       theZoomOutButton.style.opacity = '0.8';
@@ -89,11 +98,13 @@ function fadeInOutOnClick2() {
         if (detectClick === false) {
           infoBox.style.opacity = '0';
           theZoomInButton.style.opacity = '0';
+          black.style.opacity = '0';
         }
       } else {
         if (detectClick === false) {
           infoBox.style.opacity = '0.8';
           theZoomInButton.style.opacity = '0.8';
+          black.style.opacity = '0.6';
         }
       }
     };

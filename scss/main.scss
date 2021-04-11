@@ -41,6 +41,21 @@ body {
   -o-transition: opacity 700ms;
 }
 
+.bl {
+  background-color: rgb(17, 17, 17);
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  z-index: 300;
+  transition: opacity 1100ms;
+  -webkit-transition: opacity 1100ms;
+  -moz-transition: opacity 1100ms;
+  -ms-transition: opacity 1100ms;
+  -o-transition: opacity 1100ms;
+}
+
 .theZoomOut {
   background: $theZoomOutColor;
   width: 15vw;
@@ -79,6 +94,7 @@ body {
   margin: 0 auto;
   user-select: none;
   opacity: 0;
+  z-index: 700;
 
   border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -130,6 +146,7 @@ body {
   left: 18vw;
   user-select: none;
   opacity: 0;
+  z-index: 700;
 
   border-radius: 50%;
   -webkit-border-radius: 50%;
