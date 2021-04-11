@@ -107,7 +107,7 @@ function init() {
   scene = new THREE.Scene();
 
   // Fog
-  scene.fog = new THREE.Fog(0x121216, 15, 20, 4000);
+  scene.fog = new THREE.Fog(0x121216, 0.5, 45, 4000);
 
   // Camera
   camera = new THREE.PerspectiveCamera(65, 1, 1, 1000);
@@ -486,7 +486,7 @@ function render() {
     // Tween camera target
     const camTargetTabletX = 0;
     const camTargetTabletY = -2.2;
-    const camTargetTabletZ = 7.8;
+    const camTargetTabletZ = 7.5;
 
     // camera on rotation
     camera.position.x = camPosTabletX + -1.2 * scroll;

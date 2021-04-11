@@ -1,7 +1,6 @@
 // ---------------------------
 // Buttons fade in / Out
 // ---------------------------
-
 const theZoomOutButton = document.getElementById('zoomOut');
 const theZoomInButton = document.getElementById('zoomIn');
 const infoBox = document.getElementById('info');
@@ -17,23 +16,23 @@ fadeInOutOnClick2();
 
 function fadeInOutOnClick1() {
   theZoomOutButton.addEventListener('click', () => {
-    infoBox.style.opacity = 0.8;
-    theZoomOutButton.style.opacity = 0;
+    infoBox.style.opacity = '0.8';
+    theZoomOutButton.style.opacity = '0';
 
     setTimeout(() => {
-      theZoomInButton.style.opacity = 0.8;
+      theZoomInButton.style.opacity = '0.8';
     }, 300);
   });
 
   theZoomInButton.addEventListener('click', () => {
-    theZoomInButton.style.opacity = 0;
+    theZoomInButton.style.opacity = '0';
 
     setTimeout(() => {
-      theZoomOutButton.style.opacity = 0.8;
+      theZoomOutButton.style.opacity = '0.8';
     }, 1100);
 
     setTimeout(() => {
-      infoBox.style.opacity = 0;
+      infoBox.style.opacity = '0';
     }, 600);
   });
 }
@@ -49,11 +48,11 @@ function fadeInOutOnClick2() {
       document.documentElement.scrollTop > 10
     ) {
       if (detectClick === false) {
-        theZoomOutButton.style.opacity = 0;
+        theZoomOutButton.style.opacity = '0';
       }
     } else {
       if (detectClick === false) {
-        theZoomOutButton.style.opacity = 0.8;
+        theZoomOutButton.style.opacity = '0.8';
       }
     }
   };
@@ -71,11 +70,11 @@ function fadeInOutOnClick2() {
         document.documentElement.scrollTop > 10
       ) {
         if (detectClick === false) {
-          theZoomOutButton.style.opacity = 0;
+          theZoomOutButton.style.opacity = '0';
         }
       } else {
         if (detectClick === false) {
-          theZoomOutButton.style.opacity = 0.8;
+          theZoomOutButton.style.opacity = '0.8';
         }
       }
     };
@@ -88,13 +87,13 @@ function fadeInOutOnClick2() {
         document.documentElement.scrollTop > 10
       ) {
         if (detectClick === false) {
-          infoBox.style.opacity = 0;
-          theZoomInButton.style.opacity = 0;
+          infoBox.style.opacity = '0';
+          theZoomInButton.style.opacity = '0';
         }
       } else {
         if (detectClick === false) {
-          infoBox.style.opacity = 0.8;
-          theZoomInButton.style.opacity = 0.8;
+          infoBox.style.opacity = '0.8';
+          theZoomInButton.style.opacity = '0.8';
         }
       }
     };

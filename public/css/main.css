@@ -75,6 +75,31 @@ body {
   -o-transition: opacity 1500ms;
 }
 
+.zoomedC {
+  width: 70vw;
+  height: 70vw;
+  display: block;
+  box-sizing: border-box;
+  z-index: 999;
+  border-radius: 50%;
+  position: fixed;
+  top: 56vw;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  /*Disablebluelinearoundcanvasonmobile*/
+  outline: none;
+  transition: opacity 700ms;
+  -webkit-transition: opacity 700ms;
+  -moz-transition: opacity 700ms;
+  -ms-transition: opacity 700ms;
+  -o-transition: opacity 700ms;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
 .theZoomIn {
   background-color: #ffffff;
   width: 15vw;
@@ -156,6 +181,12 @@ body {
     top: 38vw;
   }
 
+  .zoomedC {
+    width: 67vw;
+    height: 67vw;
+    top: 38vw;
+  }
+
   .theZoomIn {
     width: 8vw;
     height: 8vw;
@@ -188,6 +219,13 @@ body {
     left: 43vw;
   }
 
+  .zoomedC {
+    width: 42vw;
+    height: 42vw;
+    top: 5vw;
+    left: 43vw;
+  }
+
   .theZoomIn {
     width: 4vw;
     height: 4vw;
@@ -214,6 +252,13 @@ body {
   }
 
   .theInfo {
+    width: 43vw;
+    height: 43vw;
+    top: 5vw;
+    left: 43vw;
+  }
+
+  .zoomedC {
     width: 43vw;
     height: 43vw;
     top: 5vw;
