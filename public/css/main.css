@@ -30,14 +30,14 @@ canvas {
 
 .theZoomOut {
   background: linear-gradient(155deg, #00b09b 0%, #96c93d 100%);
-  width: 17vw;
-  height: 17vw;
-  position: absolute;
-  top: 45vw;
+  width: 15vw;
+  height: 15vw;
+  position: fixed;
+  top: 44vw;
   left: 18vw;
   z-index: 999;
   user-select: none;
-  opacity: 1;
+  opacity: 0.8;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -54,10 +54,10 @@ canvas {
 
 .theInfo {
   background: linear-gradient(155deg, #00b09b 0%, #96c93d 100%);
-  width: 65vw;
-  height: 65vw;
-  position: absolute;
-  top: 65vw;
+  width: 62vw;
+  height: 62vw;
+  position: fixed;
+  top: 63vw;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -77,10 +77,10 @@ canvas {
 
 .theZoomIn {
   background-color: #ffffff;
-  width: 17vw;
-  height: 17vw;
-  position: absolute;
-  top: 130vw;
+  width: 15vw;
+  height: 15vw;
+  position: fixed;
+  top: 124vw;
   left: 18vw;
   user-select: none;
   opacity: 0;
@@ -144,23 +144,23 @@ canvas {
 
   .theZoomOut {
     background: linear-gradient(155deg, #00b09b 0%, #96c93d 100%);
-    width: 9vw;
-    height: 9vw;
-    top: 33vw;
-    left: 30vw;
+    width: 8vw;
+    height: 8vw;
+    top: 30vw;
+    left: 31vw;
   }
 
   .theInfo {
-    width: 45vw;
-    height: 45vw;
-    top: 46vw;
+    width: 52vw;
+    height: 52vw;
+    top: 47vw;
   }
 
   .theZoomIn {
-    width: 9vw;
-    height: 9vw;
-    top: 80vw;
-    left: 20vw;
+    width: 8vw;
+    height: 8vw;
+    top: 87vw;
+    left: 17vw;
   }
 
   .box {
@@ -177,8 +177,8 @@ canvas {
     background: linear-gradient(155deg, #00b09b 0%, #96c93d 100%);
     width: 4vw;
     height: 4vw;
-    top: 14vw;
-    left: 40vw;
+    top: 20vw;
+    left: 37vw;
   }
 
   .theInfo {
@@ -210,7 +210,7 @@ canvas {
     width: 4vw;
     height: 4vw;
     top: 16vw;
-    left: 40vw;
+    left: 39vw;
   }
 
   .theInfo {

@@ -46,8 +46,8 @@ let tween, tweenMiddle, tweenBack;
 let p, tg;
 
 // Zoom button
-const zoomOutButton = document.getElementById('zoomOut');
-const zoomInButton = document.getElementById('zoomIn');
+const theZoomOutButton = document.getElementById('zoomOut');
+const theZoomInButton = document.getElementById('zoomIn');
 
 // Canvas
 const canvas = document.getElementById('canvas');
@@ -202,7 +202,7 @@ function init() {
     tweenMiddle.chain(tweenBack);
     tween.start();
 
-    zoomInButton.addEventListener('click', () => {
+    theZoomInButton.addEventListener('click', () => {
       tweenBack.start();
       setTimeout(() => {
         tweenMiddle.stop();
@@ -211,7 +211,7 @@ function init() {
     });
   }
 
-  zoomOutButton.addEventListener('click', () => {
+  theZoomOutButton.addEventListener('click', () => {
     panCam();
   });
 
@@ -442,7 +442,7 @@ function render() {
     // -------------------------------------------
 
     // Camera position
-    const camPosMobileX = 0.2;
+    const camPosMobileX = 0;
     const camPosMobileY = -2.5;
     const camPosMobileZ = 11;
 
@@ -452,15 +452,19 @@ function render() {
     const camTargetMobileZ = 7.7;
 
     // camera on scroll
-    camera.position.x = camPosMobileX + -1.2 * scroll;
-    camera.position.y = camPosMobileY + 1.6 * scroll;
+    camera.position.x = camPosMobileX + -0.1 * scroll;
+    camera.position.y = camPosMobileY + -5.1 * scroll;
     camera.position.z = camPosMobileZ + 8.1 * scroll;
 
-    camera.rotation.x = 0 + -1.2 * scroll;
-    camera.rotation.y = 0 + -0.1 * scroll;
+    // camera on rotation
+    camera.rotation.x = 0 + -0.5 * scroll;
+    camera.rotation.y = 0 + 0.1 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 500) {
+    if (
+      document.body.scrollTop > 500 ||
+      document.documentElement.scrollTop > 500
+    ) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;
@@ -475,7 +479,7 @@ function render() {
     // -------------------------------------------
 
     // Camera position
-    const camPosTabletX = 0.1;
+    const camPosTabletX = 0;
     const camPosTabletY = -3.5;
     const camPosTabletZ = 14;
 
@@ -484,16 +488,20 @@ function render() {
     const camTargetTabletY = -2;
     const camTargetTabletZ = 7.5;
 
-    // camera on scroll
+    // camera on rotation
     camera.position.x = camPosTabletX + -1.2 * scroll;
-    camera.position.y = camPosTabletY + -2.1 * scroll;
+    camera.position.y = camPosTabletY + -4.1 * scroll;
     camera.position.z = camPosTabletZ + 8.1 * scroll;
 
-    camera.rotation.x = 0 + -0.7 * scroll;
+    // Rotation
+    camera.rotation.x = 0 + -0.5 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 600) {
+    if (
+      document.body.scrollTop > 600 ||
+      document.documentElement.scrollTop > 600
+    ) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;
@@ -508,7 +516,7 @@ function render() {
     // -------------------------------------------
 
     // Camera position
-    const camPosLaptopX = 0.2;
+    const camPosLaptopX = 0;
     const camPosLaptopY = -2.5;
     const camPosLaptopZ = 10;
 
@@ -519,15 +527,19 @@ function render() {
 
     // camera on scroll
     camera.position.x = camPosLaptopX + -1.2 * scroll;
-    camera.position.y = camPosLaptopY + -2.1 * scroll;
+    camera.position.y = camPosLaptopY + -4.2 * scroll;
     camera.position.z = camPosLaptopZ + 8 * scroll;
 
+    // camera on rotation
     camera.rotation.x = 0 + -0.51 * scroll;
     camera.rotation.y = 0 + -0.13 * scroll;
     camera.rotation.z = 0 + -0.3 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 470) {
+    if (
+      document.body.scrollTop > 470 ||
+      document.documentElement.scrollTop > 470
+    ) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;
@@ -542,7 +554,7 @@ function render() {
     // -------------------------------------------
 
     // Camera position
-    const camPosLaptopLX = 0.1;
+    const camPosLaptopLX = 0;
     const camPosLaptopLY = -2.5;
     const camPosLaptopLZ = 11;
 
@@ -553,15 +565,19 @@ function render() {
 
     // camera on scroll
     camera.position.x = camPosLaptopLX + -1.2 * scroll;
-    camera.position.y = camPosLaptopLY + -2.1 * scroll;
+    camera.position.y = camPosLaptopLY + -3.5 * scroll;
     camera.position.z = camPosLaptopLZ + 10 * scroll;
 
+    // camera on rotation
     camera.rotation.x = 0 + -0.5 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
     camera.rotation.z = 0 + -0.3 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 450) {
+    if (
+      document.body.scrollTop > 450 ||
+      document.documentElement.scrollTop > 450
+    ) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;
@@ -576,7 +592,7 @@ function render() {
     // -------------------------------------------
 
     // Camera position
-    const camPosLaptopBigX = 0.05;
+    const camPosLaptopBigX = 0.5;
     const camPosLaptopBigY = -2.7;
     const camPosLaptopBigZ = 13;
 
@@ -587,15 +603,19 @@ function render() {
 
     // camera on scroll
     camera.position.x = camPosLaptopBigX + -1.2 * scroll;
-    camera.position.y = camPosLaptopBigY + -2.1 * scroll;
+    camera.position.y = camPosLaptopBigY + -3.1 * scroll;
     camera.position.z = camPosLaptopBigZ + 8 * scroll;
 
+    // camera on rotation
     camera.rotation.x = 0 + -0.5 * scroll;
     camera.rotation.y = 0 + -0.1 * scroll;
     camera.rotation.z = 0 + -0.3 * scroll;
 
     // Fade out on scroll
-    if (document.documentElement.scrollTop > 600) {
+    if (
+      document.body.scrollTop > 600 ||
+      document.documentElement.scrollTop > 600
+    ) {
       canvas.style.opacity = 0;
     } else {
       canvas.style.opacity = 1;

@@ -2,31 +2,101 @@
 // Buttons fade in / Out
 // ---------------------------
 
-const theZoomOut = document.getElementById('zoomOut');
-const theZoomIn = document.getElementById('zoomIn');
+const theZoomOutButton = document.getElementById('zoomOut');
+const theZoomInButton = document.getElementById('zoomIn');
 const infoBox = document.getElementById('info');
 
-fadeInOutOnClick();
+let detectClick = false;
 
-function fadeInOutOnClick() {
-  theZoomOut.addEventListener('click', () => {
-    infoBox.style.opacity = 1;
-    theZoomOut.style.opacity = 0;
+fadeInOutOnClick1();
+fadeInOutOnClick2();
+
+//
+//
+//
+
+function fadeInOutOnClick1() {
+  theZoomOutButton.addEventListener('click', () => {
+    infoBox.style.opacity = 0.8;
+    theZoomOutButton.style.opacity = 0;
 
     setTimeout(() => {
-      theZoomIn.style.opacity = 1;
+      theZoomInButton.style.opacity = 0.8;
     }, 300);
   });
 
-  theZoomIn.addEventListener('click', () => {
-    theZoomIn.style.opacity = 0;
+  theZoomInButton.addEventListener('click', () => {
+    theZoomInButton.style.opacity = 0;
 
     setTimeout(() => {
-      theZoomOut.style.opacity = 1;
+      theZoomOutButton.style.opacity = 0.8;
     }, 1100);
 
     setTimeout(() => {
       infoBox.style.opacity = 0;
     }, 600);
   });
+}
+
+//
+//
+//
+
+function fadeInOutOnClick2() {
+  window.onscroll = () => {
+    if (
+      document.body.scrollTop > 10 ||
+      document.documentElement.scrollTop > 10
+    ) {
+      if (detectClick === false) {
+        theZoomOutButton.style.opacity = 0;
+      }
+    } else {
+      if (detectClick === false) {
+        theZoomOutButton.style.opacity = 0.8;
+      }
+    }
+  };
+
+  theZoomOutButton.onclick = function () {
+    detectClick = true;
+  };
+
+  theZoomInButton.onclick = function () {
+    detectClick = false;
+
+    window.onscroll = () => {
+      if (
+        document.body.scrollTop > 10 ||
+        document.documentElement.scrollTop > 10
+      ) {
+        if (detectClick === false) {
+          theZoomOutButton.style.opacity = 0;
+        }
+      } else {
+        if (detectClick === false) {
+          theZoomOutButton.style.opacity = 0.8;
+        }
+      }
+    };
+  };
+
+  theZoomOutButton.onclick = function () {
+    window.onscroll = () => {
+      if (
+        document.body.scrollTop > 10 ||
+        document.documentElement.scrollTop > 10
+      ) {
+        if (detectClick === false) {
+          infoBox.style.opacity = 0;
+          theZoomInButton.style.opacity = 0;
+        }
+      } else {
+        if (detectClick === false) {
+          infoBox.style.opacity = 0.8;
+          theZoomInButton.style.opacity = 0.8;
+        }
+      }
+    };
+  };
 }
