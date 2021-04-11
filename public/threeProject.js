@@ -443,17 +443,17 @@ function render() {
 
     // Camera position
     const camPosMobileX = 0;
-    const camPosMobileY = -3.8;
-    const camPosMobileZ = 13;
+    const camPosMobileY = -3.4;
+    const camPosMobileZ = 14;
 
     // Tween camera target
     const camTargetMobileX = 0;
     const camTargetMobileY = -2.4;
-    const camTargetMobileZ = 8.3;
+    const camTargetMobileZ = 8.5;
 
     // camera on scroll
     camera.position.x = camPosMobileX + -0.1 * scroll;
-    camera.position.y = camPosMobileY + -6.1 * scroll;
+    camera.position.y = camPosMobileY + -9.1 * scroll;
     camera.position.z = camPosMobileZ + 8.1 * scroll;
 
     // camera on rotation
@@ -463,7 +463,7 @@ function render() {
     // Fade out on scroll
     if (
       document.body.scrollTop > 500 ||
-      document.documentElement.scrollTop > 500
+      document.documentElement.scrollTop > 450
     ) {
       canvas.style.opacity = 0;
     } else {
