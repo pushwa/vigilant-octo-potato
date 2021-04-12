@@ -18,6 +18,10 @@ import { TWEEN } from './jsm/libs/tween.module.min.js';
 
 // ----------------------------------------------------------------------------------------
 
+import { BokehPass } from './jsm/postprocessing/BokehPass.js';
+
+// ----------------------------------------------------------------------------------------
+
 let gui;
 let composer, lutPass;
 
