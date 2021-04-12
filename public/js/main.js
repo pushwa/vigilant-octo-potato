@@ -25,7 +25,7 @@ function fadeInOutOnClick1() {
   theZoomOutButton.addEventListener('click', () => {
     infoBox.style.opacity = '0.8';
     theZoomOutButton.style.opacity = '0';
-    black.style.opacity = '0.6';
+    black.style.opacity = '0.8';
 
     setTimeout(() => {
       theZoomInButton.style.opacity = '0.8';
@@ -104,7 +104,7 @@ function fadeInOutOnClick2() {
         if (detectClick === false) {
           infoBox.style.opacity = '0.8';
           theZoomInButton.style.opacity = '0.8';
-          black.style.opacity = '0.6';
+          black.style.opacity = '0.8';
         }
       }
     };
