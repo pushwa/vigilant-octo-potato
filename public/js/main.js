@@ -3,7 +3,7 @@
 // ---------------------------
 
 const black = document.getElementById('black');
-const black_opacity = 0.5;
+const black_opacity = 0.8;
 
 const theZoomOutButton = document.getElementById('zoomOut');
 const theZoomOutButton_opacity = 0.8;

@@ -12,7 +12,7 @@ body {
   height: 500vw;
 }
 
-.can {
+.theCanvas {
   margin: 0 auto;
   width: 100vw;
   height: 215vw;
@@ -91,31 +91,6 @@ body {
   -o-transition: opacity 1500ms;
 }
 
-.zoomedC {
-  width: 70vw;
-  height: 70vw;
-  display: block;
-  box-sizing: border-box;
-  z-index: 999;
-  border-radius: 50%;
-  position: fixed;
-  top: 56vw;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  /*Disablebluelinearoundcanvasonmobile*/
-  outline: none;
-  transition: opacity 700ms;
-  -webkit-transition: opacity 700ms;
-  -moz-transition: opacity 700ms;
-  -ms-transition: opacity 700ms;
-  -o-transition: opacity 700ms;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-}
-
 .theZoomIn {
   background-color: #ffffff;
   width: 15vw;
@@ -180,7 +155,7 @@ body {
 /* ------------------------------------- */
 /* Tablet */
 @media only screen and (min-width: 768px) {
-  .can {
+  .theCanvas {
     height: 140vw;
   }
 
@@ -217,7 +192,7 @@ body {
 }
 /* Laptop */
 @media only screen and (min-width: 1024px) {
-  .can {
+  .theCanvas {
     height: 90vw;
   }
 
@@ -256,7 +231,7 @@ body {
 }
 /* Laptop Large */
 @media only screen and (min-width: 1440px) {
-  .can {
+  .theCanvas {
     height: 75vw;
   }
 

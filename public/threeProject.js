@@ -18,10 +18,6 @@ import { TWEEN } from './jsm/libs/tween.module.min.js';
 
 // ----------------------------------------------------------------------------------------
 
-import { BokehPass } from './jsm/postprocessing/BokehPass.js';
-
-// ----------------------------------------------------------------------------------------
-
 let gui;
 let composer, lutPass;
 
@@ -457,7 +453,7 @@ function render() {
 
     // camera on scroll
     camera.position.x = camPosMobileX + -0.1 * scroll;
-    camera.position.y = camPosMobileY + -9.1 * scroll;
+    camera.position.y = camPosMobileY + -7.9 * scroll;
     camera.position.z = camPosMobileZ + 8.1 * scroll;
 
     // camera on rotation
@@ -492,9 +488,9 @@ function render() {
     const camTargetTabletY = -2.2;
     const camTargetTabletZ = 7.5;
 
-    // camera on rotation
+    // camera on scroll
     camera.position.x = camPosTabletX + -1.2 * scroll;
-    camera.position.y = camPosTabletY + -4.1 * scroll;
+    camera.position.y = camPosTabletY + -5.2 * scroll;
     camera.position.z = camPosTabletZ + 8.1 * scroll;
 
     // Rotation
@@ -531,7 +527,7 @@ function render() {
 
     // camera on scroll
     camera.position.x = camPosLaptopX + -1.2 * scroll;
-    camera.position.y = camPosLaptopY + -4.2 * scroll;
+    camera.position.y = camPosLaptopY + -5.2 * scroll;
     camera.position.z = camPosLaptopZ + 8 * scroll;
 
     // camera on rotation
@@ -569,7 +565,7 @@ function render() {
 
     // camera on scroll
     camera.position.x = camPosLaptopLX + -1.2 * scroll;
-    camera.position.y = camPosLaptopLY + -3.5 * scroll;
+    camera.position.y = camPosLaptopLY + -5.5 * scroll;
     camera.position.z = camPosLaptopLZ + 10 * scroll;
 
     // camera on rotation
